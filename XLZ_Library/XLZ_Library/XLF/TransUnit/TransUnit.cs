@@ -18,7 +18,7 @@ namespace XLZ_Library.XLF.TransUnit
 
         /* Fields */
 
-        private XmlNode transUnitXML;
+        private XmlNode xmlTransUnitNode;
 
         private XmlNode sourceNode;
         private XmlNode targetNode;
@@ -27,7 +27,15 @@ namespace XLZ_Library.XLF.TransUnit
 
         /* Constructors */
 
+        public TransUnit(XmlNode xmlTransUnitNode)
+        {
 
+            this.xmlTransUnitNode = xmlTransUnitNode;
+
+            sourceNode = xmlTransUnitNode.SelectSingleNode("//source");
+            targetNode = xmlTransUnitNode.SelectSingleNode("//target");
+
+        }
 
 
     }

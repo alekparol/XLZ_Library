@@ -58,11 +58,21 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XLF.cs" />
+    <Compile Include="SKL\SKL.cs" />
+    <Compile Include="SKL\SklUnit\Formatting.cs" />
+    <Compile Include="SKL\SklUnit\TuPlaceholder.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Source.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Target.cs" />
+    <Compile Include="XLF\TransUnit\TransUnit.cs" />
+    <Compile Include="XLF\XLF.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SKL\Meta\" />
+    <Folder Include="XLF\Meta\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,6 +10,7 @@ using System.Xml.Xsl;
 using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
+using XLZ_Library.XLF.TransUnit;
 
 namespace XLZ_Library.XLF
 {
@@ -23,7 +24,7 @@ namespace XLZ_Library.XLF
 		public XmlNode head;
 		public XmlNode body;
 
-		public XmlNodeList transUnitList;
+		public XmlNodeList xmlTransUnitList;
 
 		/* Properties */
 
@@ -38,7 +39,7 @@ namespace XLZ_Library.XLF
 			head = xlfDocument.SelectSingleNode("//header");
 			body = xlfDocument.SelectSingleNode("//body");
 
-			transUnitList = inputFile.GetElementsByTagName("trans-unit");
+			xmlTransUnitList = inputFile.GetElementsByTagName("trans-unit");
 
 		}
 	}
