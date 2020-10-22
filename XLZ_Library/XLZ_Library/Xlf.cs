@@ -31,7 +31,6 @@ namespace XLZ_Library
 
 		/* Properties */
 
-
 		/* Methods */
 		public bool IsXlfValid(string inputFile)
         {
@@ -71,6 +70,27 @@ namespace XLZ_Library
             }
         }
 
+		/* Checking if the body of the Xlf and the head and metainformation are in a correct format. */
+		/*public bool IsXlfParsedCorrectly()
+        {
+
+        }*/
+
+		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
+        {
+			XmlNode previousXmlNode = transUnit.xmlTransUnitNode.PreviousSibling;
+
+			if (transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).Count() > 0)
+			{
+				return transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).ElementAt(0);
+			}
+            else
+            {
+				return null;
+            }
+        }
+
+
 		/* Constructors */
 
 		public Xlf(string inputFile)
@@ -83,6 +103,13 @@ namespace XLZ_Library
 
 			xmlTransUnitList = xlfDocument.GetElementsByTagName("trans-unit");
 			transUnitList = new List<TransUnit>();
+
+			TransUnit auxiliaryTransUnit = new TransUnit();
+			foreach(XmlNode xmlNode in xmlTransUnitList)
+            {
+				auxiliaryTransUnit = new TransUnit(xmlNode);
+				transUnitList.Add(auxiliaryTransUnit);
+            }
 
 		}
 

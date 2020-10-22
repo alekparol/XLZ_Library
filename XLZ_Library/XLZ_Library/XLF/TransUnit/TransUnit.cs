@@ -34,6 +34,14 @@ namespace XLZ_Library.XLF.TransUnit
             }
         } 
 
+        public int GetId
+        {
+            get
+            {
+                return Int32.Parse(xmlTransUnitNode.Attributes["Id"].Value);
+            }
+        }
+
         /* Methods */
 
         public XmlNode GetPreviousTransUnit()
@@ -42,6 +50,11 @@ namespace XLZ_Library.XLF.TransUnit
         }
 
         /* Constructors */
+
+        public TransUnit()
+        {
+
+        }
 
         public TransUnit(XmlNode xmlTransUnitNode)
         {
