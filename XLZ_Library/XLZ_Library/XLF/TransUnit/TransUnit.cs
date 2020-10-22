@@ -19,12 +19,17 @@ namespace XLZ_Library.XLF.TransUnit
 
         /* Fields */
 
-        private XmlNode xmlTransUnitNode;
+        public XmlNode xmlTransUnitNode;
 
-        private XmlNode sourceNode;
-        private XmlNode targetNode;
+        public XmlNode sourceNode;
+        public XmlNode targetNode;
 
         /* Methods */
+
+        public XmlNode GetPreviousTransUnit()
+        {
+            return xmlTransUnitNode.PreviousSibling;
+        }
 
         /* Constructors */
 

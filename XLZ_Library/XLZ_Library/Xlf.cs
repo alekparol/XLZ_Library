@@ -30,17 +30,32 @@ namespace XLZ_Library
 		/* Properties */
 
 
+		/* Methods */
+		public bool IsXLFValid(string inputFile)
+        {
+			try
+			{
+				XmlDocument document = new XmlDocument();
+				document.LoadXml(inputFile);
+			}
+			catch
+			{
+				return false;
+			}
+			return true;
+		}
+
 		/* Constructors */
 
-		public Xlf(XmlDocument inputFile)
+		public Xlf(string inputFile)
 		{
 			/* Here should be added validation of XML file. */
-			xlfDocument = inputFile;
-
+			xlfDocument.LoadXml(inputFile);
+			
 			head = xlfDocument.SelectSingleNode("//header");
 			body = xlfDocument.SelectSingleNode("//body");
 
-			xmlTransUnitList = inputFile.GetElementsByTagName("trans-unit");
+			xmlTransUnitList = xlfDocument.GetElementsByTagName("trans-unit");
 			transUnitList = new List<TransUnit>();
 
 		}
