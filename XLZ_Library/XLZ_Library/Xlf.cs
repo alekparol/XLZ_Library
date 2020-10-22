@@ -31,6 +31,16 @@ namespace XLZ_Library
 
 		/* Properties */
 
+		public int GetLengthOfTransUnitList
+        {
+            get
+            {
+				return transUnitList.Count;
+            }
+        }
+
+
+
 		/* Methods */
 		public bool IsXlfValid(string inputFile)
         {
@@ -75,6 +85,30 @@ namespace XLZ_Library
         {
 
         }*/
+
+		public TransUnit GetTransUnit(int Id)
+        {
+			if (Id <= transUnitList.Count)
+            {
+				return transUnitList[Id];
+            }
+            else
+            {
+				return null;
+            }
+        }
+
+		/*public TransUnit GetTransUnit(int Id)
+        {
+			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
+			{
+				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
+			}
+			else
+			{
+				return null;
+			}
+		}*/
 
 		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
         {
