@@ -42,6 +42,7 @@ namespace XLZ_Library.XLF
 
 		}
 	}
+}
 
 
 		/*public int MaximalNumericalID
@@ -50,11 +51,9 @@ namespace XLZ_Library.XLF
 			{
 				return transUnitDataList.Last(x => x.DoesHaveNumericalID == true).ID;
 			}
-		}*/
+		}
 
-		/* Methods */
-
-		/*public TransUnitNode GetTransUnitNode(int index)
+		public TransUnitNode GetTransUnitNode(int index)
 		{
 			return transUnitDoublyLinkedList[index];
 		}
@@ -116,10 +115,7 @@ namespace XLZ_Library.XLF
 			if (GetTransUnitNodeByGeneralID(generalID) != null) return GetTransUnitNodeByGeneralID(generalID).Data;
 			else return null;
 		}
-
-		/*TODO: Change argument from TransUnitData to TransUnitNode + add validation if it is not null. */
-
-		/*public TransUnitNode GetPreviousTranslatableNode(TransUnitNode searchedNode)
+		public TransUnitNode GetPreviousTranslatableNode(TransUnitNode searchedNode)
 		{
 
 			TransUnitNode auxiliaryNode = null;
@@ -179,10 +175,7 @@ namespace XLZ_Library.XLF
 			return auxiliaryNode;
 
 		}
-
-		/* Constructors */
-
-		/*public XLF()
+		public XLF()
 		{
 
 			xlfDocument = null;
@@ -192,9 +185,7 @@ namespace XLZ_Library.XLF
 			isParsedCorrectly = false;
 
 		}
-
-		/* Validation of the path should be done in the XLZ class. */
-		/*public XLF(XmlDocument inputFile)
+		public XLF(XmlDocument inputFile)
 		{
 
 			xlfDocument = inputFile;
@@ -229,4 +220,4 @@ namespace XLZ_Library.XLF
 			}
 
 		}
-}
+}*/
