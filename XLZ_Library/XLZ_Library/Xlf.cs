@@ -42,19 +42,7 @@ namespace XLZ_Library
 
 
 		/* Methods */
-		public bool IsXlfValid(string inputFile)
-        {
-			try
-			{
-				XmlDocument document = new XmlDocument();
-				document.LoadXml(inputFile);
-			}
-			catch
-			{
-				return false;
-			}
-			return true;
-		}
+		/* TODO: Add a validation method. */
 
 		public bool IsTransUnitInBody(TransUnit transUnit)
         {
@@ -130,7 +118,9 @@ namespace XLZ_Library
 		public Xlf(string inputFile)
 		{
 			/* Here should be added validation of XML file. */
-			xlfDocument.LoadXml(inputFile);
+
+			xlfDocument = new XmlDocument();
+			xlfDocument.Load(inputFile);
 			
 			head = xlfDocument.SelectSingleNode("//header");
 			body = xlfDocument.SelectSingleNode("//body");

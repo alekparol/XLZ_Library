@@ -64,7 +64,7 @@
     <Compile Include="XLF\TransUnit\Languages\Source.cs" />
     <Compile Include="XLF\TransUnit\Languages\Target.cs" />
     <Compile Include="XLF\TransUnit\TransUnit.cs" />
-    <Compile Include="XLF\XLF.cs" />
+    <Compile Include="Xlf.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
