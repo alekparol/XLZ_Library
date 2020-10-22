@@ -12,6 +12,8 @@ using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library.XLF.TransUnit;
 
+/**/
+
 namespace XLZ_Library
 {
     public class Xlf
@@ -31,7 +33,7 @@ namespace XLZ_Library
 
 
 		/* Methods */
-		public bool IsXLFValid(string inputFile)
+		public bool IsXlfValid(string inputFile)
         {
 			try
 			{
@@ -44,6 +46,30 @@ namespace XLZ_Library
 			}
 			return true;
 		}
+
+		public bool IsTransUnitInBody(TransUnit transUnit)
+        {
+			if (transUnit.GetXmlNode.ParentNode == body)
+			{
+				return true;
+			}
+            else
+            {
+				return false;
+            }
+        }
+
+		public bool AreAllTransUnitsInBody(List<TransUnit> transUnitList)
+        {
+			if (transUnitList.All(transUnit => IsTransUnitInBody(transUnit) == true))
+			{
+				return true;
+			}
+            else
+            {
+				return false;
+            }
+        }
 
 		/* Constructors */
 

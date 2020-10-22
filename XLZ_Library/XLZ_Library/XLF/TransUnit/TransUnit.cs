@@ -24,6 +24,16 @@ namespace XLZ_Library.XLF.TransUnit
         public XmlNode sourceNode;
         public XmlNode targetNode;
 
+        /* Properties */
+
+        public XmlNode GetXmlNode
+        {
+            get
+            {
+                return xmlTransUnitNode;
+            }
+        } 
+
         /* Methods */
 
         public XmlNode GetPreviousTransUnit()
