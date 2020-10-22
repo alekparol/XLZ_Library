@@ -10,6 +10,7 @@ using System.Xml.Xsl;
 using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
+using XLZ_Library;
 
 namespace XLZ_Library.XLF.TransUnit
 {

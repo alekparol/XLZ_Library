@@ -10,7 +10,6 @@ namespace XLZ_Library
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
