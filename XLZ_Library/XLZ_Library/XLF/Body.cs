@@ -29,7 +29,8 @@ using XLZ_Library.XLF.TransUnit;
  * 4) Call the GetTransUnitById(string id) method to get the TransUnit element by the attribute "id" whereas passing value is string [This will be extensively covered in Trans-Unit class];
  * 5) Call the Get[First/Last]TransUnitNode() method to get the first or last TransUnit element of the LinkedList;
  * 6) Call the Get[Previous/Next]TransUnitNode(TransUnit currentTransUnit) method to get the previous or the next TransUnit element on the LinkedList;
- * 7) 
+ * 7) Call the GetTransUnitSublistOnAttribute(string attributeName, string attributeValue) method to get the sublist of a LinkedList based on the value of a chosen attribute;
+ * 8) Call the Get[Untranslatable/Translatable]Nodes method to get a sublist of a LinkedList of all TransUnit nodes which has "translate" attribute set on "no" or "yes" value respecitevely.
  *
  */
 
