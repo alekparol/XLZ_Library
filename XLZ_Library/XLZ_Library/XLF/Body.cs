@@ -36,16 +36,52 @@ namespace XLZ_Library
 
 		/* Methods */
 
-		public TransUnit GetTransUnit(int Id)
+		public TransUnit GetTransUnit(int position)
 		{
-			if (Id <= transUnitList.Count)
+			if (position <= transUnitList.Count)
 			{
-				return transUnitList.ElementAt(Id);
+				return transUnitList.ElementAt(position);
 			}
 			else
 			{
 				return null;
 			}
+		}
+
+		public TransUnit GetTransUnitByAttributeValue(string attributeName, string attributeValue)
+        {
+
+			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes[attributeName].Value == attributeValue);
+
+			if (subList.Count() > 0)
+            {
+				return subList.ElementAt(0);
+            }
+            else
+            {
+				return null;
+            }
+
+        }
+
+		public TransUnit GetTransUnitByID(string id)
+        {
+			return GetTransUnitByAttributeValue("id", id);
+        }
+
+		public IEnumerable<TransUnit> GetUntranslatableNodes()
+        {
+			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes["translate"].Value == "no");
+			
+			return subList;
+
+		}
+
+		public IEnumerable<TransUnit> GetTranslatableNodes()
+        {
+			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes["translate"].Value == "yes");
+
+			return subList;
 		}
 
 		/*public TransUnit GetTransUnit(int Id)
