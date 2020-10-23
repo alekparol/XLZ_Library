@@ -62,7 +62,7 @@ namespace XLZ_Library
 
 		public bool IsTransUnitInBody(TransUnit transUnit)
 		{
-			if (transUnit.GetXmlNode.ParentNode == body)
+			if (transUnit.GetXmlNode.ParentNode == xmlBody)
 			{
 				return true;
 			}
@@ -81,6 +81,20 @@ namespace XLZ_Library
 			else
 			{
 				return false;
+			}
+		}
+
+		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
+		{
+			XmlNode previousXmlNode = transUnit.xmlTransUnitNode.PreviousSibling;
+
+			if (transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).Count() > 0)
+			{
+				return transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).ElementAt(0);
+			}
+			else
+			{
+				return null;
 			}
 		}
 

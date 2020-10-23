@@ -33,10 +33,11 @@ namespace XLZ_Library_Tests.XLF_Tests
             Xlf testXlf = new Xlf(inputFile);
 
             /* Set of Assertions. */
-            Assert.AreEqual(listCount, testXlf.GetLengthOfTransUnitList);
+            Assert.AreEqual(listCount, testXlf.GetBody.GetLengthOfTransUnitList);
 
         }
 
+        /* Some Id might have not int but string for example id="document.xml.3" */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 0)]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 1)]
@@ -48,7 +49,7 @@ namespace XLZ_Library_Tests.XLF_Tests
             Xlf testXlf = new Xlf(inputFile);
 
             /* Set of Assertions. */
-            TransUnit testTransUnit = testXlf.GetTransUnit(nodeId);
+            TransUnit testTransUnit = testXlf.GetBody.GetTransUnit(nodeId);
 
             Assert.IsNotNull(testTransUnit);
             Assert.AreEqual(nodeId + 1, testTransUnit.GetId);

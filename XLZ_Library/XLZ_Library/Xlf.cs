@@ -39,7 +39,10 @@ using XLZ_Library.XLF;
  *	3) 
  *	
  *	Class for modelling Xlf file therefore should permit to:
- *	1) Create and call 
+ *	1) Create an object by passing:
+ *	1.1.) No argument;
+ *	1.2.) String inputFile argument which will denote the path to the text file.
+ *	1.3.) XmlDocument inputFile argument which will denote the XmlDocument. 
  *	
  *	
  *	Class for modelling Xlf file should not permint to:
@@ -66,6 +69,24 @@ namespace XLZ_Library
 
 		/* Properties */
 
+		public Meta GetMeta
+        {
+            get
+            {
+				return meta;
+            }
+        }
+
+		
+		public Head GetHead
+        {
+            get
+            {
+				return head;
+            }
+        }
+
+
 		public Body GetBody
         {
             get
@@ -74,8 +95,6 @@ namespace XLZ_Library
             }
         }
 
-
-
 		/* Methods */
 		/* TODO: Add a validation method. */
 		
@@ -83,9 +102,30 @@ namespace XLZ_Library
 
 		/* Constructors */
 
+		public Xlf()
+        {
+
+			meta = null;
+			head = null;
+			body = null;
+
+        }
+
+		public Xlf(XmlDocument inputFile)
+        {
+
+			xlfDocument = inputFile;
+
+			xmlMeta = xlfDocument.SelectSingleNode("//xliff");
+			xmlHead = xlfDocument.SelectSingleNode("//header");
+			xmlBody = xlfDocument.SelectSingleNode("//body");
+
+			body = new Body(xmlBody);
+
+		}
+
 		public Xlf(string inputFile)
 		{
-			/* Here should be added validation of XML file. */
 
 			xlfDocument = new XmlDocument();
 			xlfDocument.Load(inputFile);

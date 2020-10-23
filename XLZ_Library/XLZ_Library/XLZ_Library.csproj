@@ -61,6 +61,14 @@
     <Compile Include="SKL\SKL.cs" />
     <Compile Include="SKL\SklUnit\Formatting.cs" />
     <Compile Include="SKL\SklUnit\TuPlaceholder.cs" />
+    <Compile Include="XLF\Body.cs" />
+    <Compile Include="XLF\Head.cs" />
+    <Compile Include="XLF\Meta.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Elements\Bpt.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Elements\BptEpt.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Elements\Ept.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Elements\It.cs" />
+    <Compile Include="XLF\TransUnit\Languages\Elements\Ph.cs" />
     <Compile Include="XLF\TransUnit\Languages\Source.cs" />
     <Compile Include="XLF\TransUnit\Languages\Target.cs" />
     <Compile Include="XLF\TransUnit\TransUnit.cs" />
@@ -72,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SKL\Meta\" />
-    <Folder Include="XLF\Meta\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
