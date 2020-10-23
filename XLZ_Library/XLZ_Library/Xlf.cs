@@ -12,7 +12,23 @@ using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library.XLF.TransUnit;
 
-/**/
+/* This is class to model Xlf structure. Xlf is extension of XML format, which is customized for translation process. 
+ *
+ * 1. What is the typical Xlf structure?
+ * 1.1. Metainformation (to be described). 
+ * 1.2. <Header> Tag:
+ *	1.2.1. <SKL> Tag. In case of Xlf file from XLZ file, it contains tag <skl> to indicate that the file specified between those tags is related.
+ *	1.2.2. <Tool> Tag. (to be described).
+ * 1.3. <Body> Tag:
+ *	1.3.1. <trans-unit> Tags. Body contains multiple <trans-unit> nodes which are the main point of Xlf file as they contains the strings for translation process. Those strings are displayed in two child nodes:
+ *		1.3.1.1. <source> Tag. 
+ *		1.3.1.2. <target Tag.
+ *			1.3.1.1/2.1. Both <source> and <target> tags contains few types of content between them:
+ *			- One of them is plain text for translation which is not marked in any way defaultly
+ *			- Other type of content are tags for text formatting. Those tags are contained between <bpt></bpt> <ept></ept> tags, where <bpt></bpt> indicates beginning of the text formatting tag and <ept></ept> indicates the end of it. 
+ *			- <it> (to be described).
+ *			- <ph> (to be described).
+ */
 
 namespace XLZ_Library
 {
@@ -44,6 +60,30 @@ namespace XLZ_Library
 		/* Methods */
 		/* TODO: Add a validation method. */
 
+		public TransUnit GetTransUnit(int Id)
+		{
+			if (Id <= transUnitList.Count)
+			{
+				return transUnitList[Id];
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		/*public TransUnit GetTransUnit(int Id)
+        {
+			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
+			{
+				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
+			}
+			else
+			{
+				return null;
+			}
+		}*/
+
 		public bool IsTransUnitInBody(TransUnit transUnit)
         {
 			if (transUnit.GetXmlNode.ParentNode == body)
@@ -73,30 +113,6 @@ namespace XLZ_Library
         {
 
         }*/
-
-		public TransUnit GetTransUnit(int Id)
-        {
-			if (Id <= transUnitList.Count)
-            {
-				return transUnitList[Id];
-            }
-            else
-            {
-				return null;
-            }
-        }
-
-		/*public TransUnit GetTransUnit(int Id)
-        {
-			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
-			{
-				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
-			}
-			else
-			{
-				return null;
-			}
-		}*/
 
 		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
         {

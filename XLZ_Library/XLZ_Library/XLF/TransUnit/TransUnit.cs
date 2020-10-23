@@ -38,7 +38,7 @@ namespace XLZ_Library.XLF.TransUnit
         {
             get
             {
-                return Int32.Parse(xmlTransUnitNode.Attributes["Id"].Value);
+                return Int32.Parse(xmlTransUnitNode.Attributes["id"].Value);
             }
         }
 

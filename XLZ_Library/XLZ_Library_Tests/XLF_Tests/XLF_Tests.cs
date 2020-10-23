@@ -25,18 +25,35 @@ namespace XLZ_Library_Tests.XLF_Tests
 
 
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf")]
-        public void DataTest_Xlf_Validation(string inputFile)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 169)]
+        public void DataTest_Xlf_ListCount(string inputFile, int listCount)
         {
 
             /* Initialization. */
             Xlf testXlf = new Xlf(inputFile);
 
             /* Set of Assertions. */
-
-            //Assert.IsTrue(testXlf.IsXlfValid(inputFile));
+            Assert.AreEqual(listCount, testXlf.GetLengthOfTransUnitList);
 
         }
+
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 0)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 90)]
+        public void DataTest_Xlf_NodeId(string inputFile, int nodeId)
+        {
+
+            /* Initialization. */
+            Xlf testXlf = new Xlf(inputFile);
+
+            /* Set of Assertions. */
+            TransUnit testTransUnit = testXlf.GetTransUnit(nodeId);
+
+            Assert.IsNotNull(testTransUnit);
+            Assert.AreEqual(nodeId + 1, testTransUnit.GetId);
+        }
+
 
         [TestMethod]
         public void TestMethod1()
