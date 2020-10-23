@@ -12,6 +12,15 @@ using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library.XLF.TransUnit;
 
+/* This class intended use is to model structure of the <body></body> part of the Xlf document.  
+ *
+ * What is the typical body structure in Xlf file? 
+ * 1. Between <body> tags you can find the list of <trans-unit> nodes which are the only childres of body node. [Add if something is missing]
+ * 
+ * Class for modelling 
+ *
+ */
+
 namespace XLZ_Library
 {
     public class Body
@@ -84,6 +93,27 @@ namespace XLZ_Library
 			return subList;
 		}
 
+		public TransUnit GetFirstTransUnit()
+		{
+			return transUnitList.First();
+		}
+
+		public TransUnit GetLastTransUnit()
+        {
+			return transUnitList.Last();
+        }
+
+		public TransUnit GetPreviousTransUnit(TransUnit currentTransUnit)
+        {
+			return transUnitList.Find(currentTransUnit).Previous.Value;
+
+		}
+
+		public TransUnit GetNextTransUnit(TransUnit currentTransUnit)
+        {
+			return transUnitList.Find(currentTransUnit).Next.Value;
+        }
+
 		/*public TransUnit GetTransUnit(int Id)
         {
 			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
@@ -117,20 +147,6 @@ namespace XLZ_Library
 			else
 			{
 				return false;
-			}
-		}
-
-		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
-		{
-			XmlNode previousXmlNode = transUnit.xmlTransUnitNode.PreviousSibling;
-
-			if (transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).Count() > 0)
-			{
-				return transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).ElementAt(0);
-			}
-			else
-			{
-				return null;
 			}
 		}
 

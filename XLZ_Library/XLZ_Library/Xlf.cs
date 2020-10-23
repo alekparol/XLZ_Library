@@ -15,7 +15,7 @@ using XLZ_Library.XLF;
 
 /* This is class to model Xlf structure. Xlf is extension of XML format, which is customized for translation process. 
  *
- * 1. What is the typical Xlf structure?
+ * What is the typical Xlf structure?
  * 1.1. Metainformation (to be described). 
  * 1.2. <Header> Tag:
  *	1.2.1. <SKL> Tag. In case of Xlf file from XLZ file, it contains tag <skl> to indicate that the file specified between those tags is related.
