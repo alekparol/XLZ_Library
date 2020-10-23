@@ -11,6 +11,7 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library.XLF.TransUnit;
+using XLZ_Library.XLF;
 
 /* This is class to model Xlf structure. Xlf is extension of XML format, which is customized for translation process. 
  *
@@ -55,20 +56,21 @@ namespace XLZ_Library
 
 		public XmlDocument xlfDocument;
 
-		public XmlNode meta;
-		public XmlNode head;
-		public XmlNode body;
+		public XmlNode xmlMeta;
+		public XmlNode xmlHead;
+		public XmlNode xmlBody;
 
-		public XmlNodeList xmlTransUnitList;
-		public List<TransUnit> transUnitList;
+		public Meta meta;
+		public Head head;
+		public Body body;
 
 		/* Properties */
 
-		public int GetLengthOfTransUnitList
+		public Body GetBody
         {
             get
             {
-				return transUnitList.Count;
+				return body;
             }
         }
 
@@ -76,74 +78,7 @@ namespace XLZ_Library
 
 		/* Methods */
 		/* TODO: Add a validation method. */
-
-		public TransUnit GetTransUnit(int Id)
-		{
-			if (Id <= transUnitList.Count)
-			{
-				return transUnitList[Id];
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		/*public TransUnit GetTransUnit(int Id)
-        {
-			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
-			{
-				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
-			}
-			else
-			{
-				return null;
-			}
-		}*/
-
-		public bool IsTransUnitInBody(TransUnit transUnit)
-        {
-			if (transUnit.GetXmlNode.ParentNode == body)
-			{
-				return true;
-			}
-            else
-            {
-				return false;
-            }
-        }
-
-		public bool AreAllTransUnitsInBody(List<TransUnit> transUnitList)
-        {
-			if (transUnitList.All(transUnit => IsTransUnitInBody(transUnit) == true))
-			{
-				return true;
-			}
-            else
-            {
-				return false;
-            }
-        }
-
-		/* Checking if the body of the Xlf and the head and metainformation are in a correct format. */
-		/*public bool IsXlfParsedCorrectly()
-        {
-
-        }*/
-
-		public TransUnit GetPreviousTransUnit(TransUnit transUnit)
-        {
-			XmlNode previousXmlNode = transUnit.xmlTransUnitNode.PreviousSibling;
-
-			if (transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).Count() > 0)
-			{
-				return transUnitList.Where(node => node.xmlTransUnitNode.Equals(previousXmlNode)).ElementAt(0);
-			}
-            else
-            {
-				return null;
-            }
-        }
+		
 
 
 		/* Constructors */
@@ -155,19 +90,11 @@ namespace XLZ_Library
 			xlfDocument = new XmlDocument();
 			xlfDocument.Load(inputFile);
 
-			meta = xlfDocument.SelectSingleNode("//xliff");
-			head = xlfDocument.SelectSingleNode("//header");
-			body = xlfDocument.SelectSingleNode("//body");
+			xmlMeta = xlfDocument.SelectSingleNode("//xliff");
+			xmlHead = xlfDocument.SelectSingleNode("//header");
+			xmlBody = xlfDocument.SelectSingleNode("//body");
 
-			xmlTransUnitList = xlfDocument.GetElementsByTagName("trans-unit");
-			transUnitList = new List<TransUnit>();
-
-			TransUnit auxiliaryTransUnit = new TransUnit();
-			foreach(XmlNode xmlNode in xmlTransUnitList)
-            {
-				auxiliaryTransUnit = new TransUnit(xmlNode);
-				transUnitList.Add(auxiliaryTransUnit);
-            }
+			body = new Body(xmlBody);
 
 		}
 

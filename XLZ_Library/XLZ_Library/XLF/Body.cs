@@ -26,8 +26,63 @@ namespace XLZ_Library
 
 		/* Properties */
 
+		public int GetLengthOfTransUnitList
+		{
+			get
+			{
+				return transUnitList.Count;
+			}
+		}
 
 		/* Methods */
+
+		public TransUnit GetTransUnit(int Id)
+		{
+			if (Id <= transUnitList.Count)
+			{
+				return transUnitList[Id];
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		/*public TransUnit GetTransUnit(int Id)
+        {
+			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
+			{
+				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
+			}
+			else
+			{
+				return null;
+			}
+		}*/
+
+		public bool IsTransUnitInBody(TransUnit transUnit)
+		{
+			if (transUnit.GetXmlNode.ParentNode == body)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool AreAllTransUnitsInBody(List<TransUnit> transUnitList)
+		{
+			if (transUnitList.All(transUnit => IsTransUnitInBody(transUnit) == true))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
 		/* Constructors */
 
