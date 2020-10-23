@@ -17,7 +17,19 @@ using XLZ_Library.XLF.TransUnit;
  * What is the typical body structure in Xlf file? 
  * 1. Between <body> tags you can find the list of <trans-unit> nodes which are the only childres of body node. [Add if something is missing]
  * 
- * Class for modelling 
+ * Class for modelling should contain:
+ * 1) XmlNode xmlBody which stores <body></body> node of the XmlDocument;
+ * 2) XmlNodeList xmlTransUnitList list of all XML <trans-unit> nodes within body;
+ * 3) LinkedList of TransUnit elements initialied with aforementioned XmlNodeList.
+ * 
+ * Class for modelling should permit to:
+ * 1) Call the Get method for accessing the value of LinkedList length;
+ * 2) Call the GetTransUnit(int integer) method to get the TransUnit element by its position in the list;
+ * 3) Call the GetTransUnitByAttribute(string attributeName, string attributeValue) method to get the TransUnit element by chosen attribute's value;
+ * 4) Call the GetTransUnitById(string id) method to get the TransUnit element by the attribute "id" whereas passing value is string [This will be extensively covered in Trans-Unit class];
+ * 5) Call the Get[First/Last]TransUnitNode() method to get the first or last TransUnit element of the LinkedList;
+ * 6) Call the Get[Previous/Next]TransUnitNode(TransUnit currentTransUnit) method to get the previous or the next TransUnit element on the LinkedList;
+ * 7) 
  *
  */
 
@@ -78,21 +90,6 @@ namespace XLZ_Library
 			return GetTransUnitByAttributeValue("id", id);
         }
 
-		public IEnumerable<TransUnit> GetUntranslatableNodes()
-        {
-			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes["translate"].Value == "no");
-			
-			return subList;
-
-		}
-
-		public IEnumerable<TransUnit> GetTranslatableNodes()
-        {
-			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes["translate"].Value == "yes");
-
-			return subList;
-		}
-
 		public TransUnit GetFirstTransUnit()
 		{
 			return transUnitList.First();
@@ -114,40 +111,21 @@ namespace XLZ_Library
 			return transUnitList.Find(currentTransUnit).Next.Value;
         }
 
-		/*public TransUnit GetTransUnit(int Id)
+		public IEnumerable<TransUnit> GetTransUnitSublistOnAttributes(string attributeName, string attributeValue)
         {
-			if (transUnitList.Where(node => node.GetId.Equals(Id)).Count() > 0)
-			{
-				return transUnitList.Where(node => node.GetId.Equals(Id)).ElementAt(0);
-			}
-			else
-			{
-				return null;
-			}
-		}*/
+			IEnumerable<TransUnit> subList = transUnitList.Where(node => node.GetXmlNode.Attributes[attributeName].Value == attributeValue);
 
-		public bool IsTransUnitInBody(TransUnit transUnit)
-		{
-			if (transUnit.GetXmlNode.ParentNode == xmlBody)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return subList;
 		}
 
-		public bool AreAllTransUnitsInBody(List<TransUnit> transUnitList)
+		public IEnumerable<TransUnit> GetUntranslatableNodes()
 		{
-			if (transUnitList.All(transUnit => IsTransUnitInBody(transUnit) == true))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return GetTransUnitSublistOnAttributes("translate", "no");
+		}
+
+		public IEnumerable<TransUnit> GetTranslatableNodes()
+		{
+			return GetTransUnitSublistOnAttributes("translate", "yes");
 		}
 
 		/* Constructors */

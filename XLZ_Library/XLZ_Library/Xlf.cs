@@ -30,13 +30,13 @@ using XLZ_Library.XLF;
  *			- <it> (to be described).
  *			- <ph> (to be described).
  *			
- *	Class for modelling Xlf file should:
- *	1) Contain XmlDocument field to store the actual XML document which is parsed in this class. This is done by the field of the name "xlfDocument". 
- *	2) Contain three fields modeling three main parts of Xlf structure:
+ *	Class for modelling Xlf file should contain:
+ *	1) XmlDocument field to store the actual XML document which is parsed in this class. This is done by the field of the name "xlfDocument". 
+ *	2) Three fields modeling three main parts of Xlf structure:
  *	 2.1.) XmlNode metaInformation;
  *	 2.2.) XmlNode header;
  *	 2.3.) XmlNode body;
- *	3) Contain three fields of type of custom class for modellin aforementioned parts of Xlf structure. 
+ *	3) Three fields of type of custom class for modellin aforementioned parts of Xlf structure. 
  *	
  *	Class for modelling Xlf file therefore should permit to:
  *	1) Call the Get methods for accsessing meta, head and body fields.  
