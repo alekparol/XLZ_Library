@@ -11,6 +11,7 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library;
+using XLZ_Library.XLF.TransUnit.Languages;
 
 namespace XLZ_Library.XLF.TransUnit
 {
@@ -21,8 +22,11 @@ namespace XLZ_Library.XLF.TransUnit
 
         public XmlNode xmlTransUnitNode;
 
-        public XmlNode sourceNode;
-        public XmlNode targetNode;
+        public XmlNode xmlSourceNode;
+        public XmlNode xmlTargetNode;
+
+        public Source sourceNode;
+        public Target targetNode;
 
         /* Properties */
 
@@ -34,6 +38,7 @@ namespace XLZ_Library.XLF.TransUnit
             }
         } 
 
+        /* Not all ids are int. For example document.xml.3 */
         public int GetId
         {
             get
@@ -61,8 +66,8 @@ namespace XLZ_Library.XLF.TransUnit
 
             this.xmlTransUnitNode = xmlTransUnitNode;
 
-            sourceNode = xmlTransUnitNode.SelectSingleNode("//source");
-            targetNode = xmlTransUnitNode.SelectSingleNode("//target");
+            xmlSourceNode = xmlTransUnitNode.SelectSingleNode("//source");
+            xmlTargetNode = xmlTransUnitNode.SelectSingleNode("//target");
 
         }
 

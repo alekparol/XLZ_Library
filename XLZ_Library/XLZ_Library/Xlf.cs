@@ -28,6 +28,8 @@ using XLZ_Library.XLF.TransUnit;
  *			- Other type of content are tags for text formatting. Those tags are contained between <bpt></bpt> <ept></ept> tags, where <bpt></bpt> indicates beginning of the text formatting tag and <ept></ept> indicates the end of it. 
  *			- <it> (to be described).
  *			- <ph> (to be described).
+ *			
+ *	Class for modelling Xlf file should 		
  */
 
 namespace XLZ_Library
