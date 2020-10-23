@@ -22,7 +22,7 @@ namespace XLZ_Library
         public XmlNode xmlBody;
 
         public XmlNodeList xmlTransUnitList;
-        public List<TransUnit> transUnitList;
+        public LinkedList<TransUnit> transUnitList;
 
 		/* Properties */
 
@@ -40,7 +40,7 @@ namespace XLZ_Library
 		{
 			if (Id <= transUnitList.Count)
 			{
-				return transUnitList[Id];
+				return transUnitList.ElementAt(Id);
 			}
 			else
 			{
@@ -106,13 +106,13 @@ namespace XLZ_Library
 			this.xmlBody = xmlBody;
 				
 			xmlTransUnitList = xmlBody.SelectNodes("//trans-unit");
-			transUnitList = new List<TransUnit>();
+			transUnitList = new LinkedList<TransUnit>();
 
 			TransUnit auxiliaryTransUnit = new TransUnit();
 			foreach (XmlNode xmlNode in xmlTransUnitList)
 			{
 				auxiliaryTransUnit = new TransUnit(xmlNode);
-				transUnitList.Add(auxiliaryTransUnit);
+				transUnitList.AddLast(auxiliaryTransUnit);
 			}
 
 		}

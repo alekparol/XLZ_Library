@@ -36,18 +36,18 @@ using XLZ_Library.XLF;
  *	 2.1.) XmlNode metaInformation;
  *	 2.2.) XmlNode header;
  *	 2.3.) XmlNode body;
- *	3) 
+ *	3) Contain three fields of type of custom class for modellin aforementioned parts of Xlf structure. 
  *	
  *	Class for modelling Xlf file therefore should permit to:
- *	1) Create an object by passing:
+ *	1) Call the Get methods for accsessing meta, head and body fields.  
+ *	2)
+ *	3) Create an object by passing:
  *	1.1.) No argument;
  *	1.2.) String inputFile argument which will denote the path to the text file.
  *	1.3.) XmlDocument inputFile argument which will denote the XmlDocument. 
  *	
- *	
  *	Class for modelling Xlf file should not permint to:
  *	1) Get nor set of based XmlDocument. 
- *	2) 
  */
 
 namespace XLZ_Library
