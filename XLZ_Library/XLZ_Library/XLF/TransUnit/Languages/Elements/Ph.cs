@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XLZ_Library.XLF.TransUnit.Languages.Elements
 {
-    class Ph
+    public class Ph
     {
     }
 }

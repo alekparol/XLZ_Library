@@ -11,20 +11,24 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library;
+using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
-/* This class intended use is to model structure of the <source></source> elements of the body node.  
+/* This class intended use is to model structure of the <source></source> elements of the trans-unit node.  
  *
- * What is the typical trans-unit structure in Xlf file? 
- * 1.) Attribute "id" which can have numerical or string value; 
- * 2.) Attribute "translation" which can have string value "no" or "yes" representing boolean value. This attribute provides the CAT tools with the information if the segment contained in the given trans-unit should be exposed or blocked for translation. 
- * 3.) source node; 
- * 4.) target node (if the translation was provided); 
+ * What is the typical for source node structure in Xlf file? 
+ * 1.) <it> node;
+ * 2.) <ph> node;
+ * 3.) <bpt> node;
+ * 4.) <ept> node;
+ * 5.) Expressions for translation.
  * 
  * Class for modelling should contain:
- * 1.) XmlNode xmlTransUnitNode field to store the information about the XmlNode for a given trams-unit;
- * 2.) XmlNode xmlSourceNode field to store the information about the XmlNode for a source subnode of a given trans-unit node;
- * 3.) XmlNode xmlTargetNode field to store the information about the XmlNode for a target subnode of a given trans-unit node;
- * 4.) Source and Target class fields to model both source and target xml subnodes. 
+ * 1.) XmlNode xmlSourceNode field to store <source> XmlNode with its XmlAttributes;
+ * 2.) XmlNodeList xmlItList field to store the XmlNodeList for all child nodes which are <it> nodes;
+ * 3.) XmlNodeList xmlPhList field to store the XmlNodeList for all child nodes which are <ph> nodes;
+ * 4.) XmlNodeList xmlBptList field to store the XmlNodeList for all child nodes which are <bpt> nodes;
+ * 5.) XmlNodeList xmlEptList field to store the XmlNodeList for all child nodes which are <ept> nodes;
+ * 6.) It, Ph, Bpt, Ept class fields to model all aforementioned XmlNodes fields.
  * 
  * Class for modelling should permit to:
  * 1.) Use Properties:
@@ -50,10 +54,15 @@ namespace XLZ_Library.XLF.TransUnit.Languages
 
         public XmlNode xmlSourceNode;
 
-        public XmlNodeList xmlBptList;
-        public XmlNodeList xmlEptList;
         public XmlNodeList xmlItList;
         public XmlNodeList xmlPhList;
+        public XmlNodeList xmlBptList;
+        public XmlNodeList xmlEptList;
+
+        public LinkedList<It> itList;
+        public LinkedList<Ph> phList;
+        public LinkedList<Bpt> bptList;
+        public LinkedList<Ept> eptList;
 
         /* Properties */
 
