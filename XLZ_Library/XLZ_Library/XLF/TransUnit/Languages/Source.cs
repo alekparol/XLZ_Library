@@ -70,5 +70,30 @@ namespace XLZ_Library.XLF.TransUnit.Languages
 
         /* Constructors */
 
+        public Source()
+        {
+
+        }
+
+        public Source(XmlNode xmlSourceNode)
+        {
+            this.xmlSourceNode = xmlSourceNode;
+
+            xmlItList = xmlSourceNode.SelectNodes("//it");
+            xmlPhList = xmlSourceNode.SelectNodes("//ph");
+            xmlBptList = xmlSourceNode.SelectNodes("//bpt");
+            xmlEptList = xmlSourceNode.SelectNodes("//ept");
+
+            itList = new LinkedList<It>();
+            var auxiliaryElement = new It();
+
+            foreach(XmlNode itElement in xmlItList)
+            {
+                auxiliaryElement = new It(itElement);
+                itList.AddLast(auxiliaryElement);
+            }
+
+        }
+
     }
 }
