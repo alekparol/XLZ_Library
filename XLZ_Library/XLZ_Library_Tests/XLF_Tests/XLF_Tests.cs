@@ -52,7 +52,7 @@ namespace XLZ_Library_Tests.XLF_Tests
             TransUnit testTransUnit = testXlf.GetBody.GetTransUnit(nodeId);
 
             Assert.IsNotNull(testTransUnit);
-            Assert.AreEqual(nodeId + 1, testTransUnit.GetId);
+            Assert.AreEqual(nodeId + 2, testTransUnit.GetId);
         }
 
 

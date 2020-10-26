@@ -67,8 +67,7 @@ namespace XLZ_Library_Tests.XLF_Tests
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 0)]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 90)]
-        public void DataTest_Body_GetTransUnit_Tests(string inputFile, int nodeId)
+        public void DataTest_Body_GetTransUnit_Tests_1(string inputFile, int nodeId)
         {
 
             /* Initialization. */
@@ -78,7 +77,24 @@ namespace XLZ_Library_Tests.XLF_Tests
             /* Set of Assertions. */
 
             Assert.IsNotNull(testTransUnit);
-            Assert.AreEqual(nodeId++, testTransUnit.GetId);
+            Assert.AreEqual((nodeId + 1).ToString(), testTransUnit.GetId);
+        }
+
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 0, "no")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 1, "no")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 8, "yes")]
+        public void DataTest_Body_GetTransUnit_Tests_2(string inputFile, int nodePosition, string nodeTranslatable)
+        {
+
+            /* Initialization. */
+            Xlf testXlf = new Xlf(inputFile);
+            TransUnit testTransUnit = testXlf.GetBody.GetTransUnit(nodePosition);
+
+            /* Set of Assertions. */
+
+            Assert.IsNotNull(testTransUnit);
+            Assert.AreEqual(nodeTranslatable, testTransUnit.GetTranslate);
         }
 
     }

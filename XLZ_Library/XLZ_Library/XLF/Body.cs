@@ -131,7 +131,7 @@ namespace XLZ_Library
 			return GetTransUnitSublistOnAttributes("translate", "no");
 		}
 
-		public IEnumerable<TransUnit> GetTranslatableNodes()
+		public IEnumerable<TransUnit> GetTranslateNodes()
 		{
 			return GetTransUnitSublistOnAttributes("translate", "yes");
 		}
