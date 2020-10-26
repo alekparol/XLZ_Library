@@ -18,15 +18,41 @@ using XLZ_Library;
 namespace XLZ_Library_Tests.XLF_Tests
 {
     [TestClass]
-    class Body_Tests
+    public class Body_Tests
     {
-
+        /* Set of test Xlf files. */
         public string xliffPath = @"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf";
 
 
+        /* Tests */
+
+        [TestMethod]
+        public void DataTest_Body_GetLengthOfTransUnitList_Tests_1()
+        {
+
+            /* Initialization. */
+            Body testBody = new Body();
+
+            /* Set of Assertions. */
+            Assert.AreEqual(0, testBody.GetLengthOfTransUnitList);
+
+        }
+
+        [TestMethod]
+        public void DataTest_Body_GetLengthOfTransUnitList_Tests_2()
+        {
+
+            /* Initialization. */
+            Xlf testXlf = new Xlf();
+
+            /* Set of Assertions. */
+            Assert.AreEqual(0, testXlf.GetBody.GetLengthOfTransUnitList);
+
+        }
+
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 169)]
-        public void DataTest_Xlf_ListCount(string inputFile, int listCount)
+        public void DataTest_Body_GetLengthOfTransUnitList_Tests_3(string inputFile, int listCount)
         {
 
             /* Initialization. */
@@ -42,17 +68,17 @@ namespace XLZ_Library_Tests.XLF_Tests
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 0)]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 1)]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\GLT_Engineering\Documentation\Script\C# Script Block all except yellow highlight\Blocked by the existing script\content.xlf", 90)]
-        public void DataTest_Xlf_NodeId(string inputFile, int nodeId)
+        public void DataTest_Body_GetTransUnit_Tests(string inputFile, int nodeId)
         {
 
             /* Initialization. */
             Xlf testXlf = new Xlf(inputFile);
-
-            /* Set of Assertions. */
             TransUnit testTransUnit = testXlf.GetBody.GetTransUnit(nodeId);
 
+            /* Set of Assertions. */
+
             Assert.IsNotNull(testTransUnit);
-            Assert.AreEqual(nodeId + 1, testTransUnit.GetId);
+            Assert.AreEqual(nodeId++, testTransUnit.GetId);
         }
 
     }

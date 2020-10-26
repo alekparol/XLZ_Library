@@ -13,6 +13,21 @@ using System.Runtime.CompilerServices;
 using XLZ_Library;
 using XLZ_Library.XLF.TransUnit.Languages;
 
+/* This class intended use is to model structure of the <trans-unit></trans-unit> elements of the body node.  
+ *
+ * What is the typical trans-unit structure in Xlf file? 
+ * 1.
+ * 
+ * Class for modelling should contain:
+ * 
+ * Class for modelling should permit to:
+ * 1) Use methods:
+ * 2) Use Constructors:
+ *		
+ * Class for modeling should not permit to:
+ * 
+ *
+ */
 namespace XLZ_Library.XLF.TransUnit
 {
     public class TransUnit
@@ -49,11 +64,6 @@ namespace XLZ_Library.XLF.TransUnit
 
         /* Methods */
 
-        public XmlNode GetPreviousTransUnit()
-        {
-            return xmlTransUnitNode.PreviousSibling;
-        }
-
         /* Constructors */
 
         public TransUnit()
@@ -70,7 +80,5 @@ namespace XLZ_Library.XLF.TransUnit
             xmlTargetNode = xmlTransUnitNode.SelectSingleNode("//target");
 
         }
-
-
     }
 }

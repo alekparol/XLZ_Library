@@ -23,14 +23,21 @@ using XLZ_Library.XLF.TransUnit;
  * 3) LinkedList of TransUnit elements initialied with aforementioned XmlNodeList.
  * 
  * Class for modelling should permit to:
- * 1) Call the Get method for accessing the value of LinkedList length;
- * 2) Call the GetTransUnit(int integer) method to get the TransUnit element by its position in the list;
- * 3) Call the GetTransUnitByAttribute(string attributeName, string attributeValue) method to get the TransUnit element by chosen attribute's value;
- * 4) Call the GetTransUnitById(string id) method to get the TransUnit element by the attribute "id" whereas passing value is string [This will be extensively covered in Trans-Unit class];
- * 5) Call the Get[First/Last]TransUnitNode() method to get the first or last TransUnit element of the LinkedList;
- * 6) Call the Get[Previous/Next]TransUnitNode(TransUnit currentTransUnit) method to get the previous or the next TransUnit element on the LinkedList;
- * 7) Call the GetTransUnitSublistOnAttribute(string attributeName, string attributeValue) method to get the sublist of a LinkedList based on the value of a chosen attribute;
- * 8) Call the Get[Untranslatable/Translatable]Nodes method to get a sublist of a LinkedList of all TransUnit nodes which has "translate" attribute set on "no" or "yes" value respecitevely.
+ * 1) Use methods:
+ *		1.1.) GetLengthOfTransUnitList method for accessing the value of LinkedList length;
+ *		1.2.) GetTransUnit(int integer) method to get the TransUnit element by its position in the list;
+ *		1.3.) GetTransUnitByAttribute(string attributeName, string attributeValue) method to get the TransUnit element by chosen attribute's value;
+ *		1.4.) GetTransUnitById(string id) method to get the TransUnit element by the attribute "id" whereas passing value is string [This will be extensively covered in Trans-Unit class];
+ *		1.5.) Get[First/Last]TransUnitNode() method to get the first or last TransUnit element of the LinkedList;
+ *		1.6.) Get[Previous/Next]TransUnitNode(TransUnit currentTransUnit) method to get the previous or the next TransUnit element on the LinkedList;
+ *		1.7.) GetTransUnitSublistOnAttribute(string attributeName, string attributeValue) method to get the sublist of a LinkedList based on the value of a chosen attribute;
+ *		1.8.) Get[Untranslatable/Translatable]Nodes method to get a sublist of a LinkedList of all TransUnit nodes which has "translate" attribute set on "no" or "yes" value respecitevely.
+ * 2) Use Constructors:
+ *		1.1.) Without arguments passed, to set all fields to null; 
+ *		1.2.) With <body> node argument. 
+ *		
+ * Class for modeling should not permit to:
+ * 
  *
  */
 
@@ -131,9 +138,16 @@ namespace XLZ_Library
 
 		/* Constructors */
 
+		public Body()
+        {
+			xmlBody = null;
+
+			xmlTransUnitList = null;
+			transUnitList = new LinkedList<TransUnit>();
+		}
+
 		public Body(XmlNode xmlBody)
 		{
-			/* Here should be added validation of XML file. */
 			this.xmlBody = xmlBody;
 				
 			xmlTransUnitList = xmlBody.SelectNodes("//trans-unit");

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XLF_Tests\Body_Tests.cs" />
     <Compile Include="XLF_Tests\Xlf_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
