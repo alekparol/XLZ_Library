@@ -146,10 +146,20 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         {
             this.xmlBptNode = xmlBptNode;
 
-            bptId = xmlBptNode.Attributes["id"].Value;
-            bptContent = xmlBptNode.InnerText;
+            if (xmlBptNode != null)
+            {
+                xmlBptAttributeCollection = xmlBptNode.Attributes;
 
-            xmlBptNode.Attributes[]
+                if (xmlBptAttributeCollection != null)
+                {
+                    if (xmlBptAttributeCollection["id"] != null)
+                    {
+                        bptId = xmlBptNode.Attributes["id"].Value;
+                    }
+                }
+            }
+            
+            bptContent = xmlBptNode.InnerText;
 
         }
 
