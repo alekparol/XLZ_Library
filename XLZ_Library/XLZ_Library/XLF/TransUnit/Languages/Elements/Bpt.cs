@@ -131,6 +131,32 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
+        public XmlAttribute GetXmlAttribute(string attributeName)
+        {
+            if (IsAttributeContained(attributeName) == 1)
+            {
+                return xmlBptAttributeCollection[attributeName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string GetXmLAttributeValue(string attributeName)
+        {
+            XmlAttribute auxiliaryAttribute;
+
+            if ((auxiliaryAttribute = GetXmlAttribute(attributeName)) != null)
+            {
+                return auxiliaryAttribute.Value;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
 
         /* Constructors */
 
@@ -159,7 +185,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
                 }
             }
             
-            bptContent = xmlBptNode.InnerText;
+            bptContent = xmlBptNode.InnerXml;
 
         }
 
