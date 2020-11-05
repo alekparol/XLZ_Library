@@ -195,9 +195,14 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
                         bptId = xmlBptNode.Attributes["id"].Value;
                     }
                 }
+
+                bptContent = xmlBptNode.InnerXml;
             }
-            
-            bptContent = xmlBptNode.InnerXml;
+            else
+            {
+                bptId = String.Empty;
+                bptContent = String.Empty;
+            }
 
         }
 
