@@ -116,7 +116,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id")]
         public void DataTest_Bpt_Tests_Methods_GetXmlAttribute(string inputFile, int bptPosition, string expectedAttributeName)
         {
 
@@ -127,7 +127,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
             Bpt bptElement = new Bpt(xmlBptNode);
 
-            XmlAttribute auxiliaryAttribute = bptElement.GetXmlAttribute(expectedAttributeName);
+            XmlAttribute auxiliaryAttribute = xmlBptNode.Attributes[expectedAttributeName];
 
             /* Set of Assertions. */
             Assert.AreEqual(auxiliaryAttribute, bptElement.GetXmlAttribute(expectedAttributeName));
@@ -147,7 +147,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Bpt bptElement = new Bpt(xmlBptNode);
 
             /* Set of Assertions. */
-            Assert.AreEqual(expectedValue, bptElement.GetXmlAttribute(expectedAttributeName));
+            Assert.AreEqual(expectedValue, bptElement.GetXmlAttributeValue(expectedAttributeName));
 
         }
 

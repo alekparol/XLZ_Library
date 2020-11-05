@@ -61,7 +61,7 @@ using XLZ_Library.XLF;
  *      2.1.) GetAttributesCount() to return the int value that indicates the number of attributes contained in bpt XmlNode. Returns -1 if the list of XmlAttributes is null. 
  *      2.2.) IsAttributeContained(string attributeName) to return the int value that indicates whether attirbute of a attributeName is contained in the XmnlAttribute list or not. Returns 1 if is, 0 if not and -1 if XmlAttributeList is empty or null. 
  *      2.3.) GetXmlAttribute(string attributeName) to return XmlAttribute value for the given attributeName. If there is no attribute of that name in the XmlAttributeList (or the list is empty) method returns null. 
- *      2.4.) GetXmLAttributeValue(string attributeName) to return string value of the attribute of the given name. This method works in a same way as GetXmlAttribute(string attributeName) but returns empty string if there is no attribute of a given name.
+ *      2.4.) GetXmlAttributeValue(string attributeName) to return string value of the attribute of the given name. This method works in a same way as GetXmlAttribute(string attributeName) but returns empty string if there is no attribute of a given name.
  * 3.) Use Constructors:
  *      1.1.) Empty constructor to set all fields to null;
  *      1.2.) Constructor to which XmlNode is passed with bpt node. 
@@ -155,7 +155,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
-        public string GetXmLAttributeValue(string attributeName)
+        public string GetXmlAttributeValue(string attributeName)
         {
             XmlAttribute auxiliaryAttribute;
 
