@@ -63,7 +63,8 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "1", "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
-        public void DataTest_Bpt_Tests_Fields(string inputFile, int bptPosition, string expectedIndex, string expectedContent)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 45, "3", "&lt;cf style=\"Hyperlink\" size=\"9\" complexscriptssize=\"9\"&gt;")]
+        public void DataTest_Bpt_Tests_Properties(string inputFile, int bptPosition, string expectedIndex, string expectedContent)
         {
 
             /* Initialization. */
@@ -81,8 +82,8 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "1", "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
-        public void DataTest_Bpt_Tests_AttributesMethods(string inputFile, int bptPosition, string expectedIndex, string expectedContent)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, 1)]
+        public void DataTest_Bpt_Tests_Methods_GetAttributesCount(string inputFile, int bptPosition, int expectedOutcome)
         {
 
             /* Initialization. */
@@ -93,8 +94,60 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Bpt bptElement = new Bpt(xmlBptNode);
 
             /* Set of Assertions. */
-            Assert.AreEqual(expectedIndex, bptElement.BptId);
-            Assert.AreEqual(expectedContent, bptElement.BptContent);
+            Assert.AreEqual(expectedOutcome, bptElement.GetAttributesCount());
+
+        }
+
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id",  1)]
+        public void DataTest_Bpt_Tests_Methods_IsAttributeContained(string inputFile, int bptPosition, string expectedAttributeName, int expectedOutcome)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            /* Set of Assertions. */
+            Assert.AreEqual(expectedOutcome, bptElement.IsAttributeContained(expectedAttributeName));
+
+        }
+
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", 1)]
+        public void DataTest_Bpt_Tests_Methods_GetXmlAttribute(string inputFile, int bptPosition, string expectedAttributeName)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            XmlAttribute auxiliaryAttribute = bptElement.GetXmlAttribute(expectedAttributeName);
+
+            /* Set of Assertions. */
+            Assert.AreEqual(auxiliaryAttribute, bptElement.GetXmlAttribute(expectedAttributeName));
+
+        }
+
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", "1")]
+        public void DataTest_Bpt_Tests_Methods_GetXmlAttributeValue(string inputFile, int bptPosition, string expectedAttributeName, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            /* Set of Assertions. */
+            Assert.AreEqual(expectedValue, bptElement.GetXmlAttribute(expectedAttributeName));
 
         }
 
