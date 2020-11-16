@@ -18,7 +18,8 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
 namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 {
-    class Ept_Tests
+    [TestClass]
+    public class Ept_Tests
     {
 
         /* Set of test Xlf files. */
