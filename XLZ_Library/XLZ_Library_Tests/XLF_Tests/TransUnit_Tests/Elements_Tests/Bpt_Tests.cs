@@ -30,6 +30,11 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         public string secondXML = @"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_2\content.xlf";
         public string empty = @"C:\Users\Aleksander.Parol\Desktop\XLZ Example\EMPTY_1\content.xlf";
 
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [TestMethod]
         public void Bpt_Test_Null()
         {
@@ -44,6 +49,10 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [TestMethod]
         public void Bpt_Tests_EmptyFile()
         {
@@ -61,6 +70,10 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "1", "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 45, "3", "&lt;cf style=\"Hyperlink\" size=\"9\" complexscriptssize=\"9\"&gt;")]
@@ -81,6 +94,11 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, 1)]
         public void DataTest_Bpt_Tests_Methods_GetAttributesCount(string inputFile, int bptPosition, int expectedOutcome)
@@ -98,6 +116,11 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id",  1)]
         public void DataTest_Bpt_Tests_Methods_IsAttributeContained(string inputFile, int bptPosition, string expectedAttributeName, int expectedOutcome)
@@ -115,6 +138,11 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id")]
         public void DataTest_Bpt_Tests_Methods_GetXmlAttribute(string inputFile, int bptPosition, string expectedAttributeName)
@@ -134,6 +162,11 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         }
 
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome:
+         */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", "1")]
         public void DataTest_Bpt_Tests_Methods_GetXmlAttributeValue(string inputFile, int bptPosition, string expectedAttributeName, string expectedValue)
