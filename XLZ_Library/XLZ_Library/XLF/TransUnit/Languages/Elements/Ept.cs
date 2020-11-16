@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 using XLZ_Library;
 using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
-/* This class intended use is to model structure of the <ept></ept> elements of the source/target node. bpt as we can read from Xliff documentation stands for "end paired tag" and is coupled with bpt. 
+/* This class intended use is to model structure of the <ept></ept> elements of the source/target node. ept as we can read from Xliff documentation stands for "end paired tag" and is coupled with bpt. 
  *
  * Documentation Description:
  * The <ept> element is used to delimit the end of a paired sequence of native codes. Each <ept> has a corresponding <bpt> element within the segment. 
@@ -75,26 +75,134 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
     {
 
         /* Fields */
-
         public XmlNode xmlEptNode;
+
+        public XmlAttributeCollection xmlEptAttributeCollection;
+
+        public string eptId;
+        public string eptContent;
 
         /* Properties */
 
+        public XmlNode GetXmlNode
+        {
+            get
+            {
+                return xmlEptNode;
+            }
+        }
+
+        public string EptId
+        {
+            get
+            {
+                return eptId;
+            }
+        }
+
+        public string EptContent
+        {
+            get
+            {
+                return eptContent;
+            }
+        }
+
+
         /* Methods */
+
+        public int GetAttributesCount()
+        {
+            if (xmlEptAttributeCollection != null)
+            {
+                return xmlEptAttributeCollection.Count;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public int IsAttributeContained(string attributeName)
+        {
+            if (GetAttributesCount() > 0)
+            {
+                if (xmlEptAttributeCollection[attributeName].Value != null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public XmlAttribute GetXmlAttribute(string attributeName)
+        {
+            if (IsAttributeContained(attributeName) == 1)
+            {
+                return xmlEptAttributeCollection[attributeName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string GetXmlAttributeValue(string attributeName)
+        {
+            XmlAttribute auxiliaryAttribute;
+
+            if ((auxiliaryAttribute = GetXmlAttribute(attributeName)) != null)
+            {
+                return auxiliaryAttribute.Value;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
 
         /* Constructors */
 
         public Ept()
         {
+            xmlEptNode = null;
 
+            eptId = "";
+            eptContent = "";
         }
 
         public Ept(XmlNode xmlEptNode)
         {
-
             this.xmlEptNode = xmlEptNode;
 
-        }
+            if (xmlEptNode != null)
+            {
+                xmlEptAttributeCollection = xmlEptNode.Attributes;
 
+                if (xmlEptAttributeCollection != null)
+                {
+                    if (xmlEptAttributeCollection["id"] != null)
+                    {
+                        eptId = xmlEptNode.Attributes["id"].Value;
+                    }
+                }
+
+                eptContent = xmlEptNode.InnerXml;
+            }
+            else
+            {
+                eptId = String.Empty;
+                eptContent = String.Empty;
+            }
+
+        }
     }
 }
