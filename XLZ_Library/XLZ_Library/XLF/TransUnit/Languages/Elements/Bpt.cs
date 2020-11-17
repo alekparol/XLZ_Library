@@ -88,14 +88,6 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         public string bptId;
         public string bptContent;
 
-        public enum OptionalAttributes
-        {
-            rid,
-            ctype,
-            ts,
-            crc
-        }
-
         /* Properties */
 
         public XmlNode GetXmlNode
@@ -153,7 +145,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
 
         public int IsAttributeContained(string attributeName)
         {
-            if(GetAttributesCount() > 0)
+            if (GetAttributesCount() > 0)
             {
                 if (xmlBptAttributeCollection[attributeName].Value != null)
                 {
@@ -194,6 +186,26 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             {
                 return "";
             }
+        }
+
+        public XmlAttribute GetRidAttribute()
+        {
+            return GetXmlAttribute("rid");
+        }
+
+        public XmlAttribute GetCtypeAttribute()
+        {
+            return GetXmlAttribute("ctype");
+        }
+
+        public XmlAttribute GetTsAttribute()
+        {
+            return GetXmlAttribute("ts");
+        }
+
+        public XmlAttribute GetCrcAttribute()
+        {
+            return GetXmlAttribute("crc");
         }
 
 

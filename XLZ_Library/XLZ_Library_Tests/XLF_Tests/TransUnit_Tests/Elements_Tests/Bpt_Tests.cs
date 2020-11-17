@@ -92,6 +92,8 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Assert.AreEqual(expectedIndex, bptElement.BptId);
             Assert.AreEqual(expectedContent, bptElement.BptContent);
 
+            Assert.AreEqual("", bptElement.GetXmlAttribute(Bpt.OptionalAttributes.crc));
+
         }
 
 
