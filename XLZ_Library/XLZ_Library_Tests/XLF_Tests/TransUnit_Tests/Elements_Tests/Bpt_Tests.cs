@@ -33,7 +33,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         /* Test for creating a new object from a null xmlNode.
          * 
-         * Expected outcome:
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
          */
         [TestMethod]
         public void Bpt_Test_Null()
@@ -44,6 +44,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Bpt bptElement = new Bpt(xmlBptNode);
 
             /* Set of Assertions. */
+            Assert.AreEqual(null, bptElement.GetXmlNode);
             Assert.AreEqual(String.Empty, bptElement.BptId);
             Assert.AreEqual(String.Empty, bptElement.BptContent);
 
@@ -51,7 +52,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         /* Test for creating a new object from a null xmlNode.
          * 
-         * Expected outcome:
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
          */
         [TestMethod]
         public void Bpt_Tests_EmptyFile()
@@ -65,6 +66,25 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Bpt bptElement = new Bpt(xmlBptNode);
 
             /* Set of Assertions. */
+            Assert.AreEqual(null, bptElement.GetXmlNode);
+            Assert.AreEqual(String.Empty, bptElement.BptId);
+            Assert.AreEqual(String.Empty, bptElement.BptContent);
+
+        }
+
+        /* Test for creating a new object from a null xmlNode.
+         * 
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
+         */
+        [TestMethod]
+        public void Bpt_Tests_EmptyConstructor()
+        {
+
+            /* Initialization. */
+            Bpt bptElement = new Bpt();
+
+            /* Set of Assertions. */
+            Assert.AreEqual(null, bptElement.GetXmlNode);
             Assert.AreEqual(String.Empty, bptElement.BptId);
             Assert.AreEqual(String.Empty, bptElement.BptContent);
 
@@ -91,8 +111,6 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Assert.AreEqual(xmlBptNode, bptElement.xmlBptNode);
             Assert.AreEqual(expectedIndex, bptElement.BptId);
             Assert.AreEqual(expectedContent, bptElement.BptContent);
-
-            Assert.AreEqual("", bptElement.GetXmlAttribute(Bpt.OptionalAttributes.crc));
 
         }
 
