@@ -45,7 +45,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
             /* Set of Assertions. */
             Assert.AreEqual(null, bptElement.GetXmlNode);
-            Assert.AreEqual(String.Empty, bptElement.BptId);
+            Assert.AreEqual(-1, bptElement.BptId);
             Assert.AreEqual(String.Empty, bptElement.BptContent);
 
         }
@@ -67,7 +67,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
             /* Set of Assertions. */
             Assert.AreEqual(null, bptElement.GetXmlNode);
-            Assert.AreEqual(String.Empty, bptElement.BptId);
+            Assert.AreEqual(-1, bptElement.BptId);
             Assert.AreEqual(String.Empty, bptElement.BptContent);
 
         }
@@ -85,7 +85,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
             /* Set of Assertions. */
             Assert.AreEqual(null, bptElement.GetXmlNode);
-            Assert.AreEqual(String.Empty, bptElement.BptId);
+            Assert.AreEqual(-1, bptElement.BptId);
             Assert.AreEqual(String.Empty, bptElement.BptContent);
 
         }
@@ -95,8 +95,12 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
          * Expected outcome:
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "1", "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 45, "3", "&lt;cf style=\"Hyperlink\" size=\"9\" complexscriptssize=\"9\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, 1, "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 45, 3, "&lt;cf style=\"Hyperlink\" size=\"9\" complexscriptssize=\"9\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\IDML_1\content.xlf", 0, 1, "lt;cf cstyle=\"CharacterStyle/$ID/[No character style]\" color=\"Color/C=0 M=0 Y=0 K=0\" style=\"Semibold\" size=\"12\" leading=\"unit:12\" font=\"string:Diodrum\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\IDML_1\content.xlf", 259, 1, "&lt;cf cstyle=\"CharacterStyle/$ID/[No character style]\" color=\"Color/C=0 M=0 Y=0 K=100\" style=\"Medium\" size=\"10\" leading=\"unit:10\" font=\"string:Diodrum\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\PDF_1\content.xlf", 0, 1, "lt;cf cstyle=\"CharacterStyle/$ID/[No character style]\" color=\"Color/C=0 M=0 Y=0 K=0\" style=\"Semibold\" size=\"12\" leading=\"unit:12\" font=\"string:Diodrum\"&gt;")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\PDF_1\content.xlf", 259, 1, "&lt;cf cstyle=\"CharacterStyle/$ID/[No character style]\" color=\"Color/C=0 M=0 Y=0 K=100\" style=\"Medium\" size=\"10\" leading=\"unit:10\" font=\"string:Diodrum\"&gt;")]
         public void DataTest_Bpt_Tests_Properties(string inputFile, int bptPosition, string expectedIndex, string expectedContent)
         {
 

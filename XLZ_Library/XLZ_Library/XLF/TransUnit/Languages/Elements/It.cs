@@ -25,7 +25,7 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
  * What is the typical for it node structure in Xlf file? 
  * 1.) Required Attributes:
  *     1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
- *                Default value is empty sting whereas value should be alpha numeric without spaces.            
+ *                Default value is empty string whereas value should be alpha numeric without spaces.            
  *     1.2.) pos - The beginning or end of an isolated tag.
  *                There is no default value for this attribute. It should have only two possible values - "open" or "close" as a reference of opening or closing of given isolated tag.
  * 2.) Optional Attributes:
