@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library;
 using XLZ_Library.XLF.TransUnit.Languages.Elements;
+using XLZ_Library.XLF.TransUnph.Languages.Elements;
 
 /* This class intended use is to model structure of the <source></source> elements of the trans-unit node.  
  *

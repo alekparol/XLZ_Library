@@ -23,12 +23,17 @@ using XLZ_Library.XLF;
  *
  * What is the typical for bpt node structure in Xlf file? 
  * 1.) Required Attributes:
- *     1.1.) id attribute which is occupied until there will be <ept> node with the same id. Then the id will be released.
+ *     1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
+ *                Default value is empty string whereas value should be alpha numeric without spaces. 
  * 2.) Optional Attributes:
- *     2.1.) rid attribute;
- *     2.2.) ctype attribute;
- *     2.3.) ts attribute;
- *     2.4.) crc attribute;
+ *     2.1.) rid - Reference identifier - The rid attribute is used to link different elements that are related. For example, a reference to its definition, or paragraphs belonging to the same group, etc.
+ *               Default value is empty string whereas value should be alpha numeric without spaces. 
+ *     2.2.) ctype - Content Type - The type attribute specifies the content and the type of resource or style of the data of a given element. For example, to define if it is a label, or a menu item in the case of resource-type data, or the style in the case of document-related data.
+ *               Default value is empty string whereas value should be string name for the attribute like: bold (bold or strong text), font (text with font size, font face, color changes etc. ), italic (italicized text), link (hypertext), underlined (underlined text).
+ *     2.3.) ts - Tool-specific data - The ts attribute allows you to include short data understood by a specific toolset. 
+ *               Default value is empty string whereas value should be string name not specified by the standard as it is tool specific. 
+ *     2.4.) crc - A private crc value used to verify data as it is returned to the producer. The generation and verification of this number is tool-specific.
+ *               Default value is null whereas value should be numerical. 
  * 3.) Content which should be native code. 
  * 
  * Definition:
@@ -83,6 +88,14 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         public string bptId;
         public string bptContent;
 
+        public enum OptionalAttributes
+        {
+            rid,
+            ctype,
+            ts,
+            crc
+        }
+
         /* Properties */
 
         public XmlNode GetXmlNode
@@ -93,11 +106,25 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
-        public string BptId
+        public int BptId
         {
             get
             {
-                return bptId;
+                if (bptId != String.Empty)
+                {
+                    if (!bptId.Contains(" "))
+                    {
+                        return Int32.Parse(bptId);
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
             }
         }
 
