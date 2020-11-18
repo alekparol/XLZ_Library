@@ -147,7 +147,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         {
             if (GetAttributesCount() > 0)
             {
-                if (xmlBptAttributeCollection[attributeName].Value != null)
+                if (xmlBptAttributeCollection[attributeName] != null)
                 {
                     return 1;
                 }
