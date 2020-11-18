@@ -208,7 +208,6 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             return GetXmlAttribute("crc");
         }
 
-
         /* Constructors */
 
         public Bpt()
