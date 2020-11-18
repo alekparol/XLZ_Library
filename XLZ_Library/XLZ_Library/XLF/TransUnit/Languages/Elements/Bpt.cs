@@ -19,7 +19,7 @@ using XLZ_Library.XLF;
  * The <bpt> element is used to delimit the beginning of a paired sequence of native codes. Each <bpt> has a corresponding <ept> element within the segment. 
  * 
  * Notes:
- * From the Xliff version 1.1. above <bpt><ept> nodes are paired by "rid" attribute, which is used in version 1.0. but not as a standard.
+ * From the Xliff version 1.1. above <bpt><ept> nodes are paired by "rid" attribute, which is used in version 1.0. but this is not required.
  *
  * What is the typical for bpt node structure in Xlf file? 
  * 1.) Required Attributes:

@@ -19,15 +19,21 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
  * The <ept> element is used to delimit the end of a paired sequence of native codes. Each <ept> has a corresponding <bpt> element within the segment. 
  * 
  * Notes:
- * From the Xliff version 1.1. above <bpt><ept> nodes are paired by "rid" attribute, which is used in version 1.0. but not as a standard.
+ * From the Xliff version 1.1. above <bpt><ept> nodes are paired by "rid" attribute, which is used in version 1.0. but this is not required.
  *
  * What is the typical for ept node structure in Xlf file? 
  * 1.) Required Attributes:
- *     1.1.) id attribute which is occupied from the moment of <bpt> element with id of that value until there will be <ept> node with the same id. Then the id will be released.
+ *    1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
+ *               Default value is empty string whereas value should be alpha numeric without spaces. 
  * 2.) Optional Attributes:
- *     2.1.) rid attribute;
- *     2.2.) ts attribute;
- *     2.3.) crc attribute;
+ *    2.1.) rid - Reference identifier - The rid attribute is used to link different elements that are related. For example, a reference to its definition, or paragraphs belonging to the same group, etc.
+ *               Default value is empty string whereas value should be alpha numeric without spaces. 
+ *    2.2.) ctype - Content Type - The type attribute specifies the content and the type of resource or style of the data of a given element. For example, to define if it is a label, or a menu item in the case of resource-type data, or the style in the case of document-related data.
+ *               Default value is empty string whereas value should be string name for the attribute like: bold (bold or strong text), font (text with font size, font face, color changes etc. ), italic (italicized text), link (hypertext), underlined (underlined text).
+ *    2.3.) ts - Tool-specific data - The ts attribute allows you to include short data understood by a specific toolset. 
+ *               Default value is empty string whereas value should be string name not specified by the standard as it is tool specific. 
+ *    2.4.) crc - A private crc value used to verify data as it is returned to the producer. The generation and verification of this number is tool-specific.
+ *               Default value is null whereas value should be numerical. 
  * 3.) Content which should be native code. 
  * 
  * Definition:
@@ -92,11 +98,25 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
-        public string EptId
+        public int EptId
         {
             get
             {
-                return eptId;
+                if (eptId != String.Empty)
+                {
+                    if (!eptId.Contains(" "))
+                    {
+                        return Int32.Parse(eptId);
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
             }
         }
 
@@ -127,7 +147,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         {
             if (GetAttributesCount() > 0)
             {
-                if (xmlEptAttributeCollection[attributeName].Value != null)
+                if (xmlEptAttributeCollection[attributeName] != null)
                 {
                     return 1;
                 }
@@ -168,6 +188,25 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
+        public XmlAttribute GetRidAttribute()
+        {
+            return GetXmlAttribute("rid");
+        }
+
+        public XmlAttribute GetCtypeAttribute()
+        {
+            return GetXmlAttribute("ctype");
+        }
+
+        public XmlAttribute GetTsAttribute()
+        {
+            return GetXmlAttribute("ts");
+        }
+
+        public XmlAttribute GetCrcAttribute()
+        {
+            return GetXmlAttribute("crc");
+        }
 
         /* Constructors */
 
