@@ -121,7 +121,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for returning value of GetAttributesCountMethod().
+        /* Test for returning value of GetAttributesCount() method.
          * 
          * Expected outcome: In every case the method should return number of XmlAttributes contained in BptElement. In case where BptElement is null, it should of course return -1. 
          */
@@ -146,9 +146,9 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of IsAttributeContained() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In case of all bpt nodes well formed (containing id attribute) method should retur 1 if attribute is contained and 0 if it isn't. In case of non-well formed btp node it should return -1. 
          */
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id", 1)]
@@ -175,12 +175,19 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of GetXmlAttribute() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "rid")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ctype")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ts")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "crc")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "defaultattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "otherattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, "id")]
         public void DataTest_Bpt_Tests_Methods_GetXmlAttribute(string inputFile, int bptPosition, string expectedAttributeName)
         {
 
@@ -199,12 +206,19 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of GetXmlAttributeValue() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In case when the attribute is contained in Bpt element, it should have the same string value as bpt XmlNode's attribute of the same name. In case if it is not contained, outcome value should be the empty string.
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", "1")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id", "1")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "rid", "3")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ctype", "bold")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ts", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "crc", "1336")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "defaultattribute", "defaultvalue")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "otherattribute", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, "id", "")]
         public void DataTest_Bpt_Tests_Methods_GetXmlAttributeValue(string inputFile, int bptPosition, string expectedAttributeName, string expectedValue)
         {
 
@@ -217,6 +231,106 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
             /* Set of Assertions. */
             Assert.AreEqual(expectedValue, bptElement.GetXmlAttributeValue(expectedAttributeName));
+
+        }
+
+        /* Test for returning value of GetRidAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "3")]
+        public void DataTest_Bpt_Tests_Methods_GetRidAttribute(string inputFile, int bptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            XmlAttribute auxiliaryAttribute = xmlBptNode.Attributes["rid"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, bptElement.GetRidAttribute());
+
+        }
+
+        /* Test for returning value of GetCtypeAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "bold")]
+        public void DataTest_Bpt_Tests_Methods_GetCtypeAttribute(string inputFile, int bptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            XmlAttribute auxiliaryAttribute = xmlBptNode.Attributes["ctype"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, bptElement.GetCtypeAttribute());
+
+        }
+
+        /* Test for returning value of GetTsAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "")]
+        public void DataTest_Bpt_Tests_Methods_GetTsAttribute(string inputFile, int bptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            XmlAttribute auxiliaryAttribute = xmlBptNode.Attributes["ts"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, bptElement.GetTsAttribute());
+
+        }
+
+        /* Test for returning value of GetCrcAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "1336")]
+        public void DataTest_Bpt_Tests_Methods_GetCrcAttribute(string inputFile, int bptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlBptNode = xlfDocument.SelectNodes("//bpt").Item(bptPosition);
+            Bpt bptElement = new Bpt(xmlBptNode);
+
+            XmlAttribute auxiliaryAttribute = xmlBptNode.Attributes["crc"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, bptElement.GetCrcAttribute());
 
         }
 
