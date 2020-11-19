@@ -28,9 +28,12 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  *     1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
  *                Default value is empty sting whereas value should be alpha numeric wphhout spaces.            
  * 2.) Optional Attributes:
- *     2.1.) ctype
- *     2.2.) ts
- *     2.3.) crc
+ *    2.1.) ctype - Content Type - The type attribute specifies the content and the type of resource or style of the data of a given element. For example, to define if it is a label, or a menu item in the case of resource-type data, or the style in the case of document-related data.
+ *               Default value is empty string whereas value should be string name for the attribute like: bold (bold or strong text), font (text with font size, font face, color changes etc. ), italic (italicized text), link (hypertext), underlined (underlined text).
+ *    2.2.) ts - Tool-specific data - The ts attribute allows you to include short data understood by a specific toolset. 
+ *               Default value is empty string whereas value should be string name not specified by the standard as it is tool specific. 
+ *    2.3.) crc - A private crc value used to verify data as it is returned to the producer. The generation and verification of this number is tool-specific.
+ *               Default value is null whereas value should be numerical. 
  *     2.4.) assoc
  *     2.5.) equiv-test
  * 3.) Content which should be native code or zero or more <sub> elements.  

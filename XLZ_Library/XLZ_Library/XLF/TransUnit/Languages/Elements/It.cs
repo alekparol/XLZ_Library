@@ -29,10 +29,14 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
  *     1.2.) pos - The beginning or end of an isolated tag.
  *                There is no default value for this attribute. It should have only two possible values - "open" or "close" as a reference of opening or closing of given isolated tag.
  * 2.) Optional Attributes:
- *     2.1.) ctype
- *     2.2.) crc 
- *     2.3.) rid
- *     2.4.) ts
+ *     2.1.) rid - Reference identifier - The rid attribute is used to link different elements that are related. For example, a reference to its definition, or paragraphs belonging to the same group, etc.
+ *               Default value is empty string whereas value should be alpha numeric without spaces. 
+ *    2.2.) ctype - Content Type - The type attribute specifies the content and the type of resource or style of the data of a given element. For example, to define if it is a label, or a menu item in the case of resource-type data, or the style in the case of document-related data.
+ *               Default value is empty string whereas value should be string name for the attribute like: bold (bold or strong text), font (text with font size, font face, color changes etc. ), italic (italicized text), link (hypertext), underlined (underlined text).
+ *    2.3.) ts - Tool-specific data - The ts attribute allows you to include short data understood by a specific toolset. 
+ *               Default value is empty string whereas value should be string name not specified by the standard as it is tool specific. 
+ *    2.4.) crc - A private crc value used to verify data as it is returned to the producer. The generation and verification of this number is tool-specific.
+ *               Default value is null whereas value should be numerical. 
  * 3.) Content which should be native code or zero or more <sub> elements.  
  * 
  * Definition:
@@ -99,11 +103,25 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             }
         }
 
-        public string ItId
+        public int ItId
         {
             get
             {
-                return itId;
+                if (itId != String.Empty)
+                {
+                    if (!itId.Contains(" "))
+                    {
+                        return Int32.Parse(itId);
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
             }
         }
 
@@ -181,6 +199,26 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
             {
                 return "";
             }
+        }
+
+        public XmlAttribute GetRidAttribute()
+        {
+            return GetXmlAttribute("rid");
+        }
+
+        public XmlAttribute GetCtypeAttribute()
+        {
+            return GetXmlAttribute("ctype");
+        }
+
+        public XmlAttribute GetTsAttribute()
+        {
+            return GetXmlAttribute("ts");
+        }
+
+        public XmlAttribute GetCrcAttribute()
+        {
+            return GetXmlAttribute("crc");
         }
 
 
