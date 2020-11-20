@@ -18,9 +18,10 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
  * Documentation Description:
  * The <it> element is used to delimit a beginning/ending sequence of native codes that does not have its corresponding ending/beginning within the segment.
  *
- * Note:
- * In our case <it></it> delimits mostly parts of the segments locked by TiLT. Like in the example: 
+ * Notes:
+ * - In our case <it></it> delimits mostly parts of the segments locked by TiLT. Like in the example: 
  * <it id="13" pos="close" tilt:origid="10">&lt;/p&gt;</it>
+ * - It is worth to mention that id is not unique for it nor ph tags. If the content of the <it></it> tag is the same, it has the same id. Therefore id is content-invariant. 
  *
  * What is the typical for it node structure in Xlf file? 
  * 1.) Required Attributes:
@@ -160,7 +161,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages.Elements
         {
             if (GetAttributesCount() > 0)
             {
-                if (xmlItAttributeCollection[attributeName].Value != null)
+                if (xmlItAttributeCollection[attributeName] != null)
                 {
                     return 1;
                 }

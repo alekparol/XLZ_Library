@@ -33,7 +33,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
         /* Test for creating a new object from a null xmlNode.
          * 
-         * Expected outcome:
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
          */
         [TestMethod]
         public void It_Test_Null()
@@ -44,14 +44,15 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             It itElement = new It(xmlItNode);
 
             /* Set of Assertions. */
-            Assert.AreEqual(String.Empty, itElement.ItId);
+            Assert.AreEqual(null, itElement.GetXmlNode);
+            Assert.AreEqual(-1, itElement.ItId);
             Assert.AreEqual(String.Empty, itElement.ItContent);
 
         }
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for creating a new object from a null xmlNode got from an empty XML file.
          * 
-         * Expected outcome:
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
          */
         [TestMethod]
         public void It_Tests_EmptyFile()
@@ -65,19 +66,44 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             It itElement = new It(xmlItNode);
 
             /* Set of Assertions. */
-            Assert.AreEqual(String.Empty, itElement.ItId);
+            Assert.AreEqual(null, itElement.GetXmlNode);
+            Assert.AreEqual(-1, itElement.ItId);
             Assert.AreEqual(String.Empty, itElement.ItContent);
 
         }
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for creating a new object without passing argument.
          * 
-         * Expected outcome:
+         * Expected outcome: XmlNode is null, both string fields are initialized with empty string values.
+         */
+        [TestMethod]
+        public void It_Tests_EmptyConstructor()
+        {
+
+            /* Initialization. */
+            It itElement = new It();
+
+            /* Set of Assertions. */
+            Assert.AreEqual(null, itElement.GetXmlNode);
+            Assert.AreEqual(-1, itElement.ItId);
+            Assert.AreEqual(String.Empty, itElement.ItContent);
+
+        }
+
+        /* Test for creating a new object from a it XmlNode.
+         * 
+         * Expected outcome: Reference to XmlNode should be the same for XmlNode from which the It element was created and XmlNode got as a field from this object. As well id of It should be string value of it XmlNode converted to Int32 and content should match InnerXml. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "1", "&lt;cf bold=\"on\" complexscriptsbold=\"on\" italic=\"on\" complexscriptsitalic=\"on\" size=\"9\" complexscriptssize=\"9\"&gt;")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 45, "3", "&lt;cf style=\"Hyperlink\" size=\"9\" complexscriptssize=\"9\"&gt;")]
-        public void DataTest_It_Tests_Properties(string inputFile, int itPosition, string expectedIndex, string expectedContent)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 0, 2, "&lt;p&gt;", "open")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 1, 2, "&lt;/p&gt;", "close")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 2, 2, "&lt;p&gt;", "open")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 3, 2, "&lt;/p&gt;", "close")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 6, 3, "&lt;p style=\"text-align: center;\"&gt;", "open")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 7, 4, "&lt;strong&gt;", "open")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 8, 4, "&lt;/strong&gt;", "close")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 61, 4, "&lt;strong&gt;", "open")]
+        public void DataTest_It_Tests_Properties(string inputFile, int itPosition, int expectedIndex, string expectedContent, string expectedPos)
         {
 
             /* Initialization. */
@@ -90,25 +116,29 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             /* Set of Assertions. */
             Assert.AreEqual(xmlItNode, itElement.xmlItNode);
             Assert.AreEqual(expectedIndex, itElement.ItId);
+            Assert.AreEqual(expectedPos, itElement.ItPos);
             Assert.AreEqual(expectedContent, itElement.ItContent);
 
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of GetAttributesCount() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In every case the method should return number of XmlAttributes contained in ItElement. In case where ItElement is null, it should of course return -1. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, 1)]
-        public void DataTest_It_Tests_Methods_GetAttributesCount(string inputFile, int itPosition, int expectedOutcome)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_1\content.xlf", 0, 3)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\EMPTY_1\content.xlf", 0, -1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 0, 0)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, 8)]
+        public void DataTest_It_Tests_Methods_GetAttributesCount(string inputFile, int eptPosition, int expectedOutcome)
         {
 
             /* Initialization. */
             XmlDocument xlfDocument = new XmlDocument();
             xlfDocument.Load(inputFile);
 
-            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(itPosition);
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
             It itElement = new It(xmlItNode);
 
             /* Set of Assertions. */
@@ -117,20 +147,27 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of IsAttributeContained() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In case of all it nodes well formed (containing id attribute) method should return 1 if attribute is contained and 0 if it isn't. In case of non-well formed it node it should return -1. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", 1)]
-        public void DataTest_It_Tests_Methods_IsAttributeContained(string inputFile, int itPosition, string expectedAttributeName, int expectedOutcome)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "id", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "rid", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ctype", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ts", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "crc", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "defaultattribute", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "otherattribute", 0)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 0, "id", -1)]
+        public void DataTest_It_Tests_Methods_IsAttributeContained(string inputFile, int eptPosition, string expectedAttributeName, int expectedOutcome)
         {
 
             /* Initialization. */
             XmlDocument xlfDocument = new XmlDocument();
             xlfDocument.Load(inputFile);
 
-            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(itPosition);
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
             It itElement = new It(xmlItNode);
 
             /* Set of Assertions. */
@@ -139,20 +176,27 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of GetXmlAttribute() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In every case (even if the attribute is not contained in ept XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id")]
-        public void DataTest_It_Tests_Methods_GetXmlAttribute(string inputFile, int itPosition, string expectedAttributeName)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "id")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "rid")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ctype")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ts")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "crc")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "defaultattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "otherattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 0, "id")]
+        public void DataTest_It_Tests_Methods_GetXmlAttribute(string inputFile, int eptPosition, string expectedAttributeName)
         {
 
             /* Initialization. */
             XmlDocument xlfDocument = new XmlDocument();
             xlfDocument.Load(inputFile);
 
-            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(itPosition);
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
             It itElement = new It(xmlItNode);
 
             XmlAttribute auxiliaryAttribute = xmlItNode.Attributes[expectedAttributeName];
@@ -163,24 +207,131 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         }
 
 
-        /* Test for creating a new object from a null xmlNode.
+        /* Test for returning value of GetXmlAttributeValue() method.
          * 
-         * Expected outcome:
+         * Expected outcome: In case when the attribute is contained in It element, it should have the same string value as it XmlNode's attribute of the same name. In case if it is not contained, outcome value should be the empty string.
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, "id", "1")]
-        public void DataTest_It_Tests_Methods_GetXmlAttributeValue(string inputFile, int itPosition, string expectedAttributeName, string expectedValue)
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "id", "2")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "rid", "1")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ctype", "bold")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "ts", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "crc", "1336")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "defaultattribute", "defaultvalue")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "otherattribute", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 0, "id", "")]
+        public void DataTest_It_Tests_Methods_GetXmlAttributeValue(string inputFile, int eptPosition, string expectedAttributeName, string expectedValue)
         {
 
             /* Initialization. */
             XmlDocument xlfDocument = new XmlDocument();
             xlfDocument.Load(inputFile);
 
-            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(itPosition);
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
             It itElement = new It(xmlItNode);
 
             /* Set of Assertions. */
             Assert.AreEqual(expectedValue, itElement.GetXmlAttributeValue(expectedAttributeName));
+
+        }
+
+        /* Test for returning value of GetRidAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in it XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "1")]
+        public void DataTest_It_Tests_Methods_GetRidAttribute(string inputFile, int eptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
+            It itElement = new It(xmlItNode);
+
+            XmlAttribute auxiliaryAttribute = xmlItNode.Attributes["rid"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, itElement.GetRidAttribute());
+
+        }
+
+        /* Test for returning value of GetCtypeAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in ept XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "bold")]
+        public void DataTest_It_Tests_Methods_GetCtypeAttribute(string inputFile, int eptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
+            It itElement = new It(xmlItNode);
+
+            XmlAttribute auxiliaryAttribute = xmlItNode.Attributes["ctype"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, itElement.GetCtypeAttribute());
+
+        }
+
+        /* Test for returning value of GetTsAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in ept XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "")]
+        public void DataTest_It_Tests_Methods_GetTsAttribute(string inputFile, int eptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
+            It itElement = new It(xmlItNode);
+
+            XmlAttribute auxiliaryAttribute = xmlItNode.Attributes["ts"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, itElement.GetTsAttribute());
+
+        }
+
+        /* Test for returning value of GetCrcAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in bpt XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_5_IT_ATTRIBUTES\content.xlf", 1, "1336")]
+        public void DataTest_It_Tests_Methods_GetCrcAttribute(string inputFile, int eptPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlItNode = xlfDocument.SelectNodes("//it").Item(eptPosition);
+            It itElement = new It(xmlItNode);
+
+            XmlAttribute auxiliaryAttribute = xmlItNode.Attributes["crc"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, itElement.GetCrcAttribute());
 
         }
 
