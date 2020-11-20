@@ -14,15 +14,16 @@ using XLZ_Library;
 using XLZ_Library.XLF.TransUnph.Languages.Elements;
 
 
-/* This class intended use is to model structure of the <ph></ph> elements of the source/target node. ph as we can read from Xliff documentation stands for "isolated tag". 
+/* This class intended use is to model structure of the <ph></ph> elements of the source/target node. ph as we can read from Xliff documentation stands for "place holder". 
  *
  * Documentation Description:
  * The <ph> element is used to delimit a sequence of native stand-alone codes in the segment.
  *
- * Note:
- * In our case <ph></ph> delimits mostly native code parts of the segments locked by TiLT. Like in the example: 
- * <ph equiv-text="&quot;}" id="1" tilt:type="do-not-translate">&amp;quot;}</ph>
- *
+ * Notes:
+ * - In our case <ph></ph> delimits mostly native code parts of the segments locked by TiLT. Like in the example: 
+ *  <ph equiv-text="&quot;}" id="1" tilt:type="do-not-translate">&amp;quot;}</ph>
+ * - equiv-text attribute is valid from Xliff v.1.2. up. But from some reason TiLT is behaving like the Xliff 1.0. is Xliff 1.2. 
+ *  
  * What is the typical for ph node structure in Xlf file? 
  * 1.) Required Attributes:
  *     1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
@@ -34,8 +35,11 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  *               Default value is empty string whereas value should be string name not specified by the standard as it is tool specific. 
  *    2.3.) crc - A private crc value used to verify data as it is returned to the producer. The generation and verification of this number is tool-specific.
  *               Default value is null whereas value should be numerical. 
- *     2.4.) assoc
- *     2.5.) equiv-test
+ *    2.4.) assoc - Association - of a <ph> with the text prior or after.
+ *               Default value is null whereas value should be alphanumerical.
+ *    2.5.) equiv-test - Indicates the equivalent text to substitute in place of an inline tag. It is useful for inserting whitespace or other content in place of markup to facilitate consistent word counting. 
+ *               The equiv-text attribute is also useful for ensuring consistent round trip conversion between native resource formats and XLIFF content, for example the resource string "F&ile" converts to the following XLIFF: "F<x id='1' ctype='x-akey' equiv-text=''/>ile" to preserve the underlying translatable content.
+ *               There is no default value for this argument whereas values should be alphanumerical. 
  * 3.) Content which should be native code or zero or more <sub> elements.  
  * 
  * Definphion:
@@ -63,7 +67,6 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  * 1.) Use Properties:
  *      1.1.) GetXmlNode to return the xmlPhNode;
  *      1.2.) GetId to return string value of the "id" attribute;
- *      1.3.) GetEquivText to return string value of the "equiv-text" attribute;
  *      1.4.) GetContent to return string value of the content contained between <ph></ph> tags.
  * 2.) Use Methods:
  *      2.1.) GetAttributesCount() to return the int value that indicates the number of attributes contained in ph XmlNode. Returns -1 if the list of XmlAttributes is null. 
@@ -136,7 +139,7 @@ namespace XLZ_Library.XLF.TransUnph.Languages.Elements
         {
             if (GetAttributesCount() > 0)
             {
-                if (xmlPhAttributeCollection[attributeName].Value != null)
+                if (xmlPhAttributeCollection[attributeName] != null)
                 {
                     return 1;
                 }
@@ -175,6 +178,31 @@ namespace XLZ_Library.XLF.TransUnph.Languages.Elements
             {
                 return "";
             }
+        }
+
+        public XmlAttribute GetCtypeAttribute()
+        {
+            return GetXmlAttribute("ctype");
+        }
+
+        public XmlAttribute GetTsAttribute()
+        {
+            return GetXmlAttribute("ts");
+        }
+
+        public XmlAttribute GetCrcAttribute()
+        {
+            return GetXmlAttribute("crc");
+        }
+
+        public XmlAttribute GetAssocAttribute()
+        {
+            return GetXmlAttribute("assoc");
+        }
+
+        public XmlAttribute GetEquivTextAttribute()
+        {
+            return GetXmlAttribute("equiv-text");
         }
 
 
