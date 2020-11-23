@@ -21,7 +21,7 @@ using XLZ_Library.XLF.TransUnit.Languages.Elements;
  * Notes:
  * - In our case <it></it> delimits mostly parts of the segments locked by TiLT. Like in the example: 
  * <it id="13" pos="close" tilt:origid="10">&lt;/p&gt;</it>
- * - It is worth to mention that id is not unique for it nor ph tags. If the content of the <it></it> tag is the same, it has the same id. Therefore id is content-invariant. 
+ * - It is worth to mention that id is not unique for it nor ph tags. If the content of the <it></it> tag is the same, it has the same id. Therefore id is content-invariant. [NEW THEORY: id stands for the TiLT pattern]
  *
  * What is the typical for it node structure in Xlf file? 
  * 1.) Required Attributes:

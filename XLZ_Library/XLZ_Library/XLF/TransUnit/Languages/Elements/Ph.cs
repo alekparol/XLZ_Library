@@ -23,6 +23,7 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  * - In our case <ph></ph> delimits mostly native code parts of the segments locked by TiLT. Like in the example: 
  *  <ph equiv-text="&quot;}" id="1" tilt:type="do-not-translate">&amp;quot;}</ph>
  * - equiv-text attribute is valid from Xliff v.1.2. up. But from some reason TiLT is behaving like the Xliff 1.0. is Xliff 1.2. 
+ * - It is worth to mention that id is not unique for it nor ph tags. If the content of the <ph></ph> tag is the same, it has the same id. Therefore id is content-invariant. [NEW THEORY: id stands for the TiLT pattern]
  *  
  * What is the typical for ph node structure in Xlf file? 
  * 1.) Required Attributes:
