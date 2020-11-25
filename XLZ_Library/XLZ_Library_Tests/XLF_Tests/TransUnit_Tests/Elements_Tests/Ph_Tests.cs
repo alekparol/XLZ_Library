@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XLZ_Library.XLF;
 using XLZ_Library.XLF.TransUnit;
 using XLZ_Library;
-using XLZ_Library.XLF.TransUnph.Languages.Elements;
+using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
 namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 {
@@ -129,8 +129,8 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
         [DataTestMethod]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 0, 1)]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\EMPTY_1\content.xlf", 0, -1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, 6)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, 0)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, 8)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 2, 0)]
         public void DataTest_Ph_Tests_Methods_GetAttributesCount(string inputFile, int phPosition, int expectedOutcome)
         {
 
@@ -152,14 +152,16 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
          * Expected outcome: In case of all ph nodes well formed (containing id attribute) method should retur 1 if attribute is contained and 0 if it isn't. In case of non-well formed btp node it should return -1. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "rid", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ctype", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ts", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "crc", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "defaultattribute", 1)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "otherattribute", 0)]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, "id", -1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "id", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ts", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "crc", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ctype", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "assoc", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "tilt:type", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "equiv-text", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "defaultattribute", 1)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "otherattribute", 0)]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 2, "id", -1)]
         public void DataTest_Ph_Tests_Methods_IsAttributeContained(string inputFile, int phPosition, string expectedAttributeName, int expectedOutcome)
         {
 
@@ -181,14 +183,16 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
          * Expected outcome: In every case (even if the attribute is not contained in ph XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "rid")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ctype")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ts")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "crc")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "defaultattribute")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "otherattribute")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, "id")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "id")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ts")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "crc")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ctype")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "assoc")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "tilt:type")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "equiv-text")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "defaultattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "otherattribute")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 2, "id")]
         public void DataTest_Ph_Tests_Methods_GetXmlAttribute(string inputFile, int phPosition, string expectedAttributeName)
         {
 
@@ -212,14 +216,16 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
          * Expected outcome: In case when the attribute is contained in Ph element, it should have the same string value as ph XmlNode's attribute of the same name. In case if it is not contained, outcome value should be the empty string.
          */
         [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "id", "1")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "rid", "3")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ctype", "bold")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "ts", "")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "crc", "1336")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "defaultattribute", "defaultvalue")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "otherattribute", "")]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 1, "id", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "id", "3")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ts", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "crc", "1336")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "ctype", "bold")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "assoc", "{&quot;itemHeader&quot;:")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "tilt:type", "do-not-translate")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "equiv-text", "{&quot;itemHeader&quot;:")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "defaultattribute", "defaultvalue")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 0, "otherattribute", "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_6_PH_ATTRIBUTES\content.xlf", 2, "id", "")]
         public void DataTest_Ph_Tests_Methods_GetXmlAttributeValue(string inputFile, int phPosition, string expectedAttributeName, string expectedValue)
         {
 
@@ -232,31 +238,6 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
 
             /* Set of Assertions. */
             Assert.AreEqual(expectedValue, phElement.GetXmlAttributeValue(expectedAttributeName));
-
-        }
-
-        /* Test for returning value of GetRidAttribute() method.
-         * 
-         * Expected outcome: In every case (even if the attribute is not contained in ph XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
-         */
-        [DataTestMethod]
-        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "3")]
-        public void DataTest_Ph_Tests_Methods_GetRidAttribute(string inputFile, int phPosition, string expectedValue)
-        {
-
-            /* Initialization. */
-            XmlDocument xlfDocument = new XmlDocument();
-            xlfDocument.Load(inputFile);
-
-            XmlNode xmlPhNode = xlfDocument.SelectNodes("//ph").Item(phPosition);
-            Ph phElement = new Ph(xmlPhNode);
-
-            XmlAttribute auxiliaryAttribute = xmlPhNode.Attributes["rid"];
-
-            /* Set of Assertions. */
-            Assert.IsNotNull(auxiliaryAttribute);
-            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
-            Assert.AreEqual(auxiliaryAttribute, phElement.GetRidAttribute());
 
         }
 
@@ -332,6 +313,56 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests.Elements_Tests
             Assert.IsNotNull(auxiliaryAttribute);
             Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
             Assert.AreEqual(auxiliaryAttribute, phElement.GetCrcAttribute());
+
+        }
+
+        /* Test for returning value of GetRidAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in ph XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "{&quot;itemHeader&quot;:")]
+        public void DataTest_Ph_Tests_Methods_GetAssocAttribute(string inputFile, int phPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlPhNode = xlfDocument.SelectNodes("//ph").Item(phPosition);
+            Ph phElement = new Ph(xmlPhNode);
+
+            XmlAttribute auxiliaryAttribute = xmlPhNode.Attributes["rid"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, phElement.GetAssocAttribute());
+
+        }
+
+        /* Test for returning value of GetRidAttribute() method.
+         * 
+         * Expected outcome: In every case (even if the attribute is not contained in ph XmlNode), reference of the attribute found by its name, should be the same as reference of XmlNode's attribute of that name. 
+         */
+        [DataTestMethod]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\XML_3_BPT_ATTRIBUTES\content.xlf", 0, "{&quot;itemHeader&quot;:")]
+        public void DataTest_Ph_Tests_Methods_GetEquivTextAttribute(string inputFile, int phPosition, string expectedValue)
+        {
+
+            /* Initialization. */
+            XmlDocument xlfDocument = new XmlDocument();
+            xlfDocument.Load(inputFile);
+
+            XmlNode xmlPhNode = xlfDocument.SelectNodes("//ph").Item(phPosition);
+            Ph phElement = new Ph(xmlPhNode);
+
+            XmlAttribute auxiliaryAttribute = xmlPhNode.Attributes["rid"];
+
+            /* Set of Assertions. */
+            Assert.IsNotNull(auxiliaryAttribute);
+            Assert.AreEqual(expectedValue, auxiliaryAttribute.Value);
+            Assert.AreEqual(auxiliaryAttribute, phElement.GetEquivTextAttribute());
 
         }
 

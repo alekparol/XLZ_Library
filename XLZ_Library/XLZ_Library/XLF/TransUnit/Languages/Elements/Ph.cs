@@ -11,10 +11,10 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Runtime.CompilerServices;
 using XLZ_Library;
-using XLZ_Library.XLF.TransUnph.Languages.Elements;
+using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
 
-/* This class intended use is to model structure of the <ph></ph> elements of the source/target node. ph as we can read from Xliff documentation stands for "place holder". 
+/* This class intended use is to model structure of the <ph></phph> elements of the source/target node. ph as we can read from Xliff documentation stands for "place holder". 
  *
  * Documentation Description:
  * The <ph> element is used to delimit a sequence of native stand-alone codes in the segment.
@@ -22,13 +22,12 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  * Notes:
  * - In our case <ph></ph> delimits mostly native code parts of the segments locked by TiLT. Like in the example: 
  *  <ph equiv-text="&quot;}" id="1" tilt:type="do-not-translate">&amp;quot;}</ph>
- * - equiv-text attribute is valid from Xliff v.1.2. up. But from some reason TiLT is behaving like the Xliff 1.0. is Xliff 1.2. 
  * - It is worth to mention that id is not unique for it nor ph tags. If the content of the <ph></ph> tag is the same, it has the same id. Therefore id is content-invariant. [NEW THEORY: id stands for the TiLT pattern]
  *  
  * What is the typical for ph node structure in Xlf file? 
  * 1.) Required Attributes:
  *     1.1.) id - The id attribute is used in many elements, usually as a unique reference to the original corresponding format for the given element.
- *                Default value is empty sting whereas value should be alpha numeric wphhout spaces.            
+ *                Default value is empty sting whereas value should be alpha numeric without spaces.            
  * 2.) Optional Attributes:
  *    2.1.) ctype - Content Type - The type attribute specifies the content and the type of resource or style of the data of a given element. For example, to define if it is a label, or a menu item in the case of resource-type data, or the style in the case of document-related data.
  *               Default value is empty string whereas value should be string name for the attribute like: bold (bold or strong text), font (text with font size, font face, color changes etc. ), italic (italicized text), link (hypertext), underlined (underlined text).
@@ -43,7 +42,7 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  *               There is no default value for this argument whereas values should be alphanumerical. 
  * 3.) Content which should be native code or zero or more <sub> elements.  
  * 
- * Definphion:
+ * Description:
  * 
  * Machine code: This is the most well-defined one. Ph is code that uses the byte-code instructions which your processor (the physical piece of metal that does the actual work) understands and executes directly. 
  * All other code must be translated or transformed into machine code before your machine can execute ph.
@@ -76,13 +75,13 @@ using XLZ_Library.XLF.TransUnph.Languages.Elements;
  *      2.4.) GetXmlAttributeValue(string attributeName) to return string value of the attribute of the given name. This method works in a same way as GetXmlAttribute(string attributeName) but returns empty string if there is no attribute of a given name.
  * 3.) Use Constructors:
  *      1.1.) Empty constructor to set all fields to null;
- *      1.2.) Constructor to which XmlNode is passed wphh ph node. 
+ *      1.2.) Constructor to which XmlNode is passed with ph node. 
  *		
  * Class for modeling should not permit to:
  * 
  *
  */
-namespace XLZ_Library.XLF.TransUnph.Languages.Elements
+namespace XLZ_Library.XLF.TransUnit.Languages.Elements
 {
     public class Ph
     {
@@ -105,11 +104,25 @@ namespace XLZ_Library.XLF.TransUnph.Languages.Elements
             }
         }
 
-        public string PhId
+        public int PhId
         {
             get
             {
-                return phId;
+                if (phId != String.Empty)
+                {
+                    if (!phId.Contains(" "))
+                    {
+                        return Int32.Parse(phId);
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
             }
         }
 

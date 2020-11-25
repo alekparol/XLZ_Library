@@ -65,7 +65,6 @@
     <Compile Include="XLF\Head.cs" />
     <Compile Include="XLF\Meta.cs" />
     <Compile Include="XLF\TransUnit\Languages\Elements\Bpt.cs" />
-    <Compile Include="XLF\TransUnit\Languages\Elements\BptEpt.cs" />
     <Compile Include="XLF\TransUnit\Languages\Elements\Ept.cs" />
     <Compile Include="XLF\TransUnit\Languages\Elements\It.cs" />
     <Compile Include="XLF\TransUnit\Languages\Elements\Ph.cs" />
