@@ -1,17 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Diagnostics;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Xsl;
-using System.Xml.XPath;
-using System.Xml.Linq;
-using System.Runtime.CompilerServices;
-using XLZ_Library;
-using XLZ_Library.XLF.TransUnit.Languages.Elements;
 
 /* This class intended use is to model structure of the <it></it> elements of the source/target node. it as we can read from Xliff documentation stands for "isolated tag". 
  *
