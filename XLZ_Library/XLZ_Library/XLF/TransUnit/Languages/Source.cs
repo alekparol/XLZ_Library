@@ -197,7 +197,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                     string regexEptXml = "(.*?)" + "(" + eptXml + ")" + "(?!.*\\1)";
                     Regex eptText = new Regex(regexEptXml);
 
-                    string last = eptText.Match(sourceContent).Groups[0].Value;
+                    string last = eptText.Match(sourceContent).Groups[1].Value;
                     return last;
                 }
             }

@@ -170,6 +170,15 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 3, 1, "2020 Short-Term Incentive Plan (STIP) Overview")]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 4, 1, "What you do matters.")]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 6, 1, "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 6, 2, "Your daily efforts drive DuPont’s results.")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 8, 2, "That’s why our rewards philosophy")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 1, "")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 3, "<bpt id=\"4\">&lt;cf style=\"Hyperlink\"&gt;</bpt>Click <ept id=\"4\">&lt;/cf&gt;</ept>")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 4, "Click ")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 4, "Click ")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 5, "<bpt id=\"6\">&lt;cf style=\"Hyperlink\"&gt;</bpt>here for an overview of the plan.<ept id=\"6\">&lt;/cf&gt;</ept>")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 6, "here for an overview of the plan.")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 14, 7, "")]
         public void DataTest_Source_Tests_Methods_GetBptEptContent(string inputFile, int sourcePosition, int bptEptId, string expectedBptEptContent)
         {
 
