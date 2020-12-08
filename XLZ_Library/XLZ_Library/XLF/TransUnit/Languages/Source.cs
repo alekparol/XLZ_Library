@@ -160,45 +160,39 @@ namespace XLZ_Library.XLF.TransUnit.Languages
         {
             if (bptList.Exists(x => x.BptId == bptEptIndex) || eptList.Exists(x => x.EptId == bptEptIndex)) 
             {
+                string bptXml, eptXml;
+
                 if (bptList.Exists(x => x.BptId == bptEptIndex))
                 {
+
+                    bptXml = bptList.FindLast(x => x.BptId == bptEptIndex).GetXmlNode.OuterXml;
+                    bptXml = bptXml.Replace("/", "\\/");
+
                     if (eptList.Exists(x => x.EptId == bptEptIndex))
                     {
-                        // Return the text between the <bpt> and <ept> tags.
-                        string bptXml = bptList.FindLast(x => x.BptId == bptEptIndex).GetXmlNode.OuterXml;
-                        string eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
-
-                        bptXml = bptXml.Replace("/", "\\/");
+                        // Return the text between the <bpt> and <ept> tags.                       
+                        eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
                         eptXml = eptXml.Replace("/", "\\/");
 
-                        string regexBptXml = bptXml + "(.*?)" + eptXml;
-                        Regex bptEptText = new Regex(regexBptXml);
-
-                        string between = bptEptText.Match(sourceContent).Groups[1].Value;
-                        return between;
+                        Regex bptEptContent = new Regex(bptXml + "(.*?)" + eptXml);
+                        return bptEptContent.Match(sourceContent).Groups[1].Value;
                     }
                     else
                     {
-                        // Return the text from the end of <bpt> tag until the end of the segment. 
-                        string bptXml = bptList.FindLast(x => x.BptId == bptEptIndex).GetXmlNode.OuterXml;
-                        bptXml = bptXml.Replace("/", "\\/");
-                        string regexBptXml = "(" + bptXml + ")" + "(.*)";
-                        Regex bptText = new Regex(regexBptXml);
-
-                        string first = bptText.Match(sourceContent).Groups[2].Value;
-                        return first;
+                        // Return the text from the end of <bpt> tag until the end of the segment.           
+                        
+                        Regex bptContent = new Regex("(" + bptXml + ")" + "(.*)");
+                        return bptContent.Match(sourceContent).Groups[2].Value;
                     }
                 }
                 else
                 {
                     // Return the text until reaching <ept>. 
-                    string eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
+                    eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
                     eptXml = eptXml.Replace("/", "\\/");
-                    string regexEptXml = "(.*?)" + "(" + eptXml + ")" + "(?!.*\\1)";
-                    Regex eptText = new Regex(regexEptXml);
 
-                    string last = eptText.Match(sourceContent).Groups[1].Value;
-                    return last;
+                    Regex eptContent = new Regex("(.*?)" + "(" + eptXml + ")" + "(?!.*\\1)");
+                    return eptContent.Match(sourceContent).Groups[1].Value;
                 }
             }
             else
