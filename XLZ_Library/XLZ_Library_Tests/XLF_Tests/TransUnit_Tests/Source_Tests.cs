@@ -169,6 +169,7 @@ namespace XLZ_Library_Tests.XLF_Tests.TransUnit_Tests
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 1, 1, "* This communication is targeted to all STIP-eligible employees.")]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 3, 1, "2020 Short-Term Incentive Plan (STIP) Overview")]
         [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 4, 1, "What you do matters.")]
+        [DataRow(@"C:\Users\Aleksander.Parol\Desktop\XLZ Example\DOCX_1\content.xlf", 6, 1, "")]
         public void DataTest_Source_Tests_Methods_GetBptEptContent(string inputFile, int sourcePosition, int bptEptId, string expectedBptEptContent)
         {
 

@@ -194,10 +194,10 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                     // Return the text until reaching <ept>. 
                     string eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
                     eptXml = eptXml.Replace("/", "\\/");
-                    string regexEptXml = "(" + eptXml + ")" + "(?!.*\\1)" + "(.*)";
+                    string regexEptXml = "(.*?)" + "(" + eptXml + ")" + "(?!.*\\1)";
                     Regex eptText = new Regex(regexEptXml);
 
-                    string last = eptText.Match(sourceContent).Groups[2].Value;
+                    string last = eptText.Match(sourceContent).Groups[0].Value;
                     return last;
                 }
             }
