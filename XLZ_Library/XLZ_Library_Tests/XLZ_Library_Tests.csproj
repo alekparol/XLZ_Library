@@ -68,6 +68,8 @@
     <Compile Include="XLF_Tests\TransUnit_Tests\Elements_Tests\Ept_Tests.cs" />
     <Compile Include="XLF_Tests\TransUnit_Tests\Elements_Tests\It_Tests.cs" />
     <Compile Include="XLF_Tests\TransUnit_Tests\Elements_Tests\Ph_Tests.cs" />
+    <Compile Include="XLF_Tests\TransUnit_Tests\Source_Tests.cs" />
+    <Compile Include="XLF_Tests\TransUnit_Tests\Target_Tests.cs" />
     <Compile Include="XLF_Tests\Xlf_Tests.cs" />
   </ItemGroup>
   <ItemGroup>

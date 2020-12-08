@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using XLZ_Library;
 using XLZ_Library.XLF.TransUnit.Languages.Elements;
 using XLZ_Library.XLF.TransUnit.Languages.Elements;
+using System.Text.RegularExpressions;
 
 /* This class intended use is to model structure of the <source></source> elements of the trans-unit node.  
  * 
@@ -61,17 +62,14 @@ namespace XLZ_Library.XLF.TransUnit.Languages
 
         public XmlNode xmlSourceNode;
 
+        public XmlAttributeCollection xmlSourceAttributeCollection;
+
         public List<Bpt> bptList = new List<Bpt>();
         public List<Ept> eptList = new List<Ept>();
         public List<It> itList = new List<It>();
         public List<Ph> phList = new List<Ph>();
 
         public string sourceContent;
-
-        //public XmlNodeList xmlBptList;
-        //public XmlNodeList xmlEptList;
-        //public XmlNodeList xmlItList;
-        //public XmlNodeList xmlPhList;
 
         /* Properties */
 
@@ -123,52 +121,175 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             }
         }
 
-        public int CountBptEpt
+        public int CountBpt
         {
             get
             {
-                if(bptList != null)
-                {
-                    if (eptList != null)
-                    {
-                        if (bptList.Count == eptList.Count)
-                        {
-                            for (int i = 1; i < bptList.Count + 1; i++)
-                            {
-                                if (bptList[i].bptId != eptList[i].eptId)
-                                {
-                                    return -1;
-                                }
-                            }
 
-                            return bptList.Count;
+                return bptList.Count;
 
-                        }
-                        else
-                        {
-                            return -1; // Here should be returned maximal count of those bpt elements that have corresponding ept element. 
-                        }
-                    }
-                    else
-                    {
-                        return -1; 
-                    }
-                }
-                else
-                {
-                    if (eptList != null)
-                    {
-                        return -1;
-                    }
-                    else
-                    {
-                        return -1;
-                    }
-                }
+            }
+        }
+
+        public int CountEpt
+        {
+            get
+            {
+                return eptList.Count;
+            }
+        }
+
+        public List<Bpt> GetBptNotClosed
+        {
+            get
+            {
+                return bptList.FindAll(x => eptList.All(y => x.BptId != y.EptId));
+            }
+        }
+
+        public List<Ept> GetEptNotBegun
+        {
+            get
+            {
+                return eptList.FindAll(x => bptList.All(y => x.EptId != y.BptId));
+            }
+        }
+
+        public List<Bpt> GetBptCloses
+        {
+            get
+            {
+                return bptList.FindAll(x => eptList.Exists(y => x.BptId == y.EptId));
+            }
+        }
+
+        public List<Ept> GetEptCloses
+        {
+            get
+            {
+                return eptList.FindAll(x => bptList.Exists(y => x.EptId == y.BptId));
             }
         }
 
         /* Methods */
+
+        public string GetBptEptContent(int bptEptIndex)
+        {
+            if (bptList.Exists(x => x.BptId == bptEptIndex) || eptList.Exists(x => x.EptId == bptEptIndex)) 
+            {
+                if (bptList.Exists(x => x.BptId == bptEptIndex))
+                {
+                    if (eptList.Exists(x => x.EptId == bptEptIndex))
+                    {
+                        // Return the text between the <bpt> and <ept> tags.
+                        string bptXml = bptList.FindLast(x => x.BptId == bptEptIndex).GetXmlNode.OuterXml;
+                        string eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
+
+                        bptXml = bptXml.Replace("/", "\\/");
+                        eptXml = eptXml.Replace("/", "\\/");
+
+                        string regexBptXml = bptXml + "(.*?)" + eptXml;
+                        Regex bptEptText = new Regex(regexBptXml);
+
+                        string between = bptEptText.Match(sourceContent).Groups[1].Value;
+                        return between;
+                    }
+                    else
+                    {
+                        // Return the text from the end of <bpt> tag until the end of the segment. 
+                        string bptXml = bptList.FindLast(x => x.BptId == bptEptIndex).GetXmlNode.OuterXml;
+                        bptXml = bptXml.Replace("/", "\\/");
+                        string regexBptXml = "(" + bptXml + ")" + "(.*)";
+                        Regex bptText = new Regex(regexBptXml);
+
+                        string first = bptText.Match(sourceContent).Groups[2].Value;
+                        return first;
+                    }
+                }
+                else
+                {
+                    // Return the text until reaching <ept>. 
+                    string eptXml = eptList.FindLast(x => x.EptId == bptEptIndex).GetXmlNode.OuterXml;
+                    eptXml = eptXml.Replace("/", "\\/");
+                    string regexEptXml = "(" + eptXml + ")" + "(?!.*\\1)" + "(.*)";
+                    Regex eptText = new Regex(regexEptXml);
+
+                    string last = eptText.Match(sourceContent).Groups[2].Value;
+                    return last;
+                }
+            }
+            else
+            {
+                return ""; 
+            }
+        }
+
+        public int GetAttributesCount()
+        {
+            if (xmlSourceAttributeCollection != null)
+            {
+                return xmlSourceAttributeCollection.Count;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public int IsAttributeContained(string attributeName)
+        {
+            if (GetAttributesCount() > 0)
+            {
+                if (xmlSourceAttributeCollection[attributeName] != null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public XmlAttribute GetXmlAttribute(string attributeName)
+        {
+            if (IsAttributeContained(attributeName) == 1)
+            {
+                return xmlSourceAttributeCollection[attributeName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public string GetXmlAttributeValue(string attributeName)
+        {
+            XmlAttribute auxiliaryAttribute;
+
+            if ((auxiliaryAttribute = GetXmlAttribute(attributeName)) != null)
+            {
+                return auxiliaryAttribute.Value;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public XmlAttribute GetTsAttribute()
+        {
+            return GetXmlAttribute("ts");
+        }
+
+        public XmlAttribute GetXmlLangAttribute()
+        {
+            return GetXmlAttribute("xml:lang");
+        }
 
         /* Constructors */
 
@@ -184,7 +305,9 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             if (xmlSourceNode != null)
             {
 
-               XmlNodeList bptNodeList = xmlSourceNode.OwnerDocument.SelectNodes("\\bpt");
+               xmlSourceAttributeCollection = xmlSourceNode.Attributes;
+
+               XmlNodeList bptNodeList = xmlSourceNode.SelectNodes("./bpt");
                Bpt auxiliaryBpt;
 
                 if (bptNodeList != null)
@@ -197,7 +320,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                 }
 
 
-                XmlNodeList eptNodeList = xmlSourceNode.OwnerDocument.SelectNodes("\\ept");
+                XmlNodeList eptNodeList = xmlSourceNode.SelectNodes("./ept");
                 Ept auxiliaryEpt;
 
                 if (eptNodeList != null)
@@ -210,7 +333,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                 }
 
 
-                XmlNodeList itNodeList = xmlSourceNode.OwnerDocument.SelectNodes("\\it");
+                XmlNodeList itNodeList = xmlSourceNode.SelectNodes("./it");
                 It auxiliaryIt;
 
                 if (itNodeList != null)
@@ -223,7 +346,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                 }
 
 
-                XmlNodeList phNodeList = xmlSourceNode.OwnerDocument.SelectNodes("\\ph");
+                XmlNodeList phNodeList = xmlSourceNode.SelectNodes("./ph");
                 Ph auxiliaryPh;
 
                 if (phNodeList != null)
