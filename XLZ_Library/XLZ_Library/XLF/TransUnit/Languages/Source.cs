@@ -121,23 +121,6 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             }
         }
 
-        public int CountBpt
-        {
-            get
-            {
-
-                return bptList.Count;
-
-            }
-        }
-
-        public int CountEpt
-        {
-            get
-            {
-                return eptList.Count;
-            }
-        }
 
         public List<Bpt> GetBptNotClosed
         {
@@ -147,7 +130,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             }
         }
 
-        public List<Ept> GetEptNotBegun
+        public List<Ept> GetEptNotStarted
         {
             get
             {
@@ -155,7 +138,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             }
         }
 
-        public List<Bpt> GetBptCloses
+        public List<Bpt> GetBptClosed
         {
             get
             {
@@ -163,7 +146,7 @@ namespace XLZ_Library.XLF.TransUnit.Languages
             }
         }
 
-        public List<Ept> GetEptCloses
+        public List<Ept> GetEptStarted
         {
             get
             {
@@ -296,6 +279,8 @@ namespace XLZ_Library.XLF.TransUnit.Languages
         public Source()
         {
             xmlSourceNode = null;
+
+            sourceContent = "";
         }
 
         public Source(XmlNode xmlSourceNode)
@@ -358,12 +343,14 @@ namespace XLZ_Library.XLF.TransUnit.Languages
                     }
                 }
 
-                sourceContent = xmlSourceNode.InnerText;
+                sourceContent = xmlSourceNode.InnerXml;
 
             }
             else
             {
+                xmlSourceNode = null;
 
+                sourceContent = "";
             }
 
         }
